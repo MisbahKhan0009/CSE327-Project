@@ -1,17 +1,21 @@
 // src/app.js
-import express from "express"; // Using ES module syntax
-import roomsRoutes from "./routes/rooms.routes.js"; // Import the rooms routes with correct path
+
+import express from "express";
+import cors from "cors"; // Import the CORS middleware
+import roomsRoutes from "./routes/rooms.routes.js";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
 
-// Middleware
+// Use CORS to allow requests from any origin
+app.use(cors());
+
+// Middleware to parse JSON
 app.use(express.json());
 
-// Use the rooms routes
-app.use("/api/rooms", roomsRoutes); // Map "/api/rooms" to roomsRoutes
+// Set up routes
+app.use("/api/rooms", roomsRoutes);
 
-// Start the server
+const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
