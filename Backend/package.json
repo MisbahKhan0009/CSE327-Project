@@ -1,19 +1,17 @@
 {
-  "name": "backend",
+  "name": "hotel-management-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "type": "module",
+  "main": "src/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "description": "",
   "dependencies": {
-    "express": "^4.21.1",
-    "mysql2": "^3.11.4"
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3"
   },
   "devDependencies": {
-    "nodemon": "^3.1.7"
+    "nodemon": "^2.0.22"
   }
 }

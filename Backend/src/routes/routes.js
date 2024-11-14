@@ -1,16 +1,16 @@
 // src/routes/routes.js
-const express = require('express');
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 // Define routes
-router.get('/', (req, res) => {
-    res.send('Welcome to Hotel Management API');
+router.get("/", (req, res) => {
+  res.send("Welcome to Hotel Management API");
 });
 
 // Example route for getting rooms
-router.get('/rooms', (req, res) => {
-    res.json({ message: 'List of rooms' });
+router.get("/rooms", (req, res) => {
+  res.json({ message: "List of rooms" });
 });
 
 // Export the router object
-module.exports = router;
+export default router;

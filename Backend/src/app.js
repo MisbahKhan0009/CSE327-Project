@@ -1,6 +1,6 @@
 // src/app.js
-const express = require("express");
-const routes = require("./routes/routes"); // Ensure this path is correct
+import express from "express"; // Using ES module syntax
+import roomsRoutes from "./routes/rooms.routes.js"; // Import the rooms routes with correct path
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,8 +8,8 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(express.json());
 
-// Use routes from the router object
-app.use("/api", routes);
+// Use the rooms routes
+app.use("/api/rooms", roomsRoutes); // Map "/api/rooms" to roomsRoutes
 
 // Start the server
 app.listen(PORT, () => {
