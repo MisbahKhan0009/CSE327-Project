@@ -1,6 +1,7 @@
 // src/routes/rooms.routes.js
 import express from "express";
-import { getAllRooms } from "../controller/rooms.controller.js"; // Import the rooms controller
+import { getAllRooms } from "../../controller/misbah/rooms.controller";
+
 
 const router = express.Router();
 

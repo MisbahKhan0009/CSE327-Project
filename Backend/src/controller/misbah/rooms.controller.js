@@ -1,5 +1,5 @@
 // src/controller/rooms.controller.js
-import db from "../config/db.js"; // Ensure the database connection is correctly imported
+import db from "../../config/db.js"; // Ensure the database connection is correctly imported
 
 // Controller function to get all rooms
 export const getAllRooms = (req, res) => {
