@@ -1,7 +1,6 @@
-// src/config/db.js
-import mysql from "mysql2"; // Import the MySQL package
+// config/db.js
+import mysql from "mysql2";
 
-// Create a MySQL connection
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -9,13 +8,12 @@ const db = mysql.createConnection({
   database: "HotelManagementSystem",
 });
 
-// Connect to the database
 db.connect((err) => {
   if (err) {
-    console.error("Database connection failed:", err);
-  } else {
-    console.log("Connected to the database.");
+    console.error("Error connecting to MySQL:", err);
+    return;
   }
+  console.log("Connected to MySQL database");
 });
 
-export default db; // Export the database connection
+export default db;
