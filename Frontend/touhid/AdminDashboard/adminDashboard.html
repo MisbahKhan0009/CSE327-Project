@@ -41,6 +41,31 @@
         </div>
       </div>
     </div>
+
+    <!-- Amenities Management -->
+    <div class="amenities-container">
+      <h2>Manage Amenities</h2>
+      <table id="amenities-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Numbers</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="amenities-body">
+          <!-- Rows will be dynamically populated by adminDashboard.js -->
+        </tbody>
+      </table>
+      <form id="add-amenity-form">
+        <h3>Add Amenity</h3>
+        <input type="text" id="amenity-name" placeholder="Name" required />
+        <input type="text" id="amenity-description" placeholder="Description" required />
+        <input type="number" id="amenity-numbers" placeholder="Numbers" required />
+        <button type="submit">Add Amenity</button>
+      </form>
+    </div>
   </div>
 
   <script src="adminDashboard.js"></script>
