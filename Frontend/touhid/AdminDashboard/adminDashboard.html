@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="adminDashboard.css" />
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <h2>Admin Panel</h2>
+    <ul>
+      <li><a href="reservations.html">Reservations</a></li>
+      <li><a href="roomComparison.html">Room Comparison</a></li>
+      <li><a href="roomAvailability.html">Room Availability</a></li>
+      <li><a href="billing.html">Billing</a></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Profile Card -->
+    <div class="profile-container">
+      <h2>Admin Information</h2>
+      <div class="profile-card">
+        <div class="profile-item">
+          <span class="icon">👤</span>
+          <p class="label">Name</p>
+          <p id="admin-name">Loading...</p>
+        </div>
+        <div class="profile-item">
+          <span class="icon">✉️</span>
+          <p class="label">Email</p>
+          <p id="admin-email">Loading...</p>
+        </div>
+        <div class="profile-item">
+          <span class="icon">📞</span>
+          <p class="label">Phone</p>
+          <p id="admin-phone">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="adminDashboard.js"></script>
+</body>
+</html>

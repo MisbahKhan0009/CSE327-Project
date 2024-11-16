@@ -1,15 +1,17 @@
-// src/app.js
+// app.js
 const express = require("express");
-const routes = require("./routes/routes"); // Ensure this path is correct
+const cors = require('cors');
+const adminRoutes = require('./routes/touhid/admin.routes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Use routes from the router object
-app.use("/api", routes);
+app.use('/api/admin', adminRoutes);
 
 // Start the server
 app.listen(PORT, () => {
