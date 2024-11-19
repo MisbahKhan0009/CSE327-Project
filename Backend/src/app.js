@@ -1,15 +1,19 @@
 // src/app.js
-const express = require("express");
-const routes = require("./routes/routes"); // Ensure this path is correct
+import express, { json } from "express";
+import cors from "cors"; // Importing CORS
+import availabilityRoutes from "./routes/availability.routes"; // Corrected path
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(express.json());
+// Enable CORS for all origins (you can customize this for specific domains)
+app.use(cors());  // You can configure options for more control, e.g., allowed origins
 
-// Use routes from the router object
-app.use("/api", routes);
+// Middleware
+app.use(json());
+
+// Use the routes for room availability
+app.use("/api", availabilityRoutes);
 
 // Start the server
 app.listen(PORT, () => {
