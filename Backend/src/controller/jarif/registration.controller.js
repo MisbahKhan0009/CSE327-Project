@@ -1,10 +1,11 @@
-import { query } from '../../config/db'; // Assuming this connects to MySQL
+const { query } = require('../../config/db'); // Assuming this connects to MySQL
 
 // Regex validation functions
 const validateEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-const validatePassword = (password) => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
+const validatePassword = (password) =>
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
 
-export async function registerUser(req, res) {
+async function registerUser(req, res) {
   const { name, role, email, phoneNumber, address, password, preferences, employeeId } = req.body;
 
   // Validate inputs
@@ -18,7 +19,8 @@ export async function registerUser(req, res) {
 
   if (!validatePassword(password)) {
     return res.status(400).json({
-      error: 'Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character',
+      error:
+        'Password must be at least 8 characters, include uppercase, lowercase, a number, and a special character',
     });
   }
 
@@ -42,3 +44,5 @@ export async function registerUser(req, res) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 }
+
+module.exports = { registerUser };
