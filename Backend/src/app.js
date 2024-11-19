@@ -1,15 +1,16 @@
-// src/app.js
-const express = require("express");
-const routes = require("./routes/routes"); // Ensure this path is correct
+import express, { json } from "express";
+import cors from "cors";
+import registrationRoutes from "./routes/jarif/registration.routes";
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = 3000;
 
 // Middleware
-app.use(express.json());
+app.use(cors());
+app.use(json());
 
-// Use routes from the router object
-app.use("/api", routes);
+// Registration routes
+app.use("/api/register", registrationRoutes);
 
 // Start the server
 app.listen(PORT, () => {

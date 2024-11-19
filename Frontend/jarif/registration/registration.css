@@ -1,0 +1,90 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+  }
+  
+  /* Form Container */
+  form {
+    background-color: #ffffff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Form Title */
+  form h1 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    text-align: center;
+    color: #444;
+  }
+  
+  /* Input Fields */
+  form input,
+  form textarea,
+  form button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  form input:focus,
+  form textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Textarea */
+  form textarea {
+    resize: none;
+    height: 80px;
+  }
+  
+  /* Button */
+  form button {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  form button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Form Validation Feedback */
+  input:invalid {
+    border-color: #dc3545;
+  }
+  
+  input:invalid:focus {
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+  }
+  
+  /* Mobile Responsiveness */
+  @media (max-width: 500px) {
+    form {
+      padding: 15px 20px;
+    }
+  }
+  
