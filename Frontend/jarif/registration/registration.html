@@ -1,24 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="registration.css">
-  <title>Register</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management Registration</title>
+    <link rel="stylesheet" href="registration.css">
 </head>
 <body>
-  <form id="registrationForm">
-    <h1>Register</h1>
-    <input type="text" name="name" placeholder="Name" required />
-    <input type="text" name="role" placeholder="Role (admin/guest)" />
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="tel" name="phoneNumber" placeholder="Phone Number" required />
-    <textarea name="address" placeholder="Address"></textarea>
-    <input type="password" name="password" placeholder="Password" required />
-    <input type="text" name="preferences" placeholder="Preferences (optional)" />
-    <input type="text" name="employeeId" placeholder="Employee ID (admins only)" />
-    <button type="submit">Register</button>
-  </form>
-  <script src="registration.js"></script>
+    <div class="registration-container">
+        <h2>Register</h2>
+        <form id="registrationForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="userType">User Type:</label>
+            <select id="userType" name="userType" required>
+                <option value="guest">Guest</option>
+                <option value="admin">Admin</option>
+            </select>
+
+            <button type="submit">Register</button>
+        </form>
+        <p id="responseMessage"></p>
+    </div>
+
+    <script src="registration.js"></script>
 </body>
 </html>

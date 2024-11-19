@@ -6,17 +6,19 @@ const validatePassword = (password) =>
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password);
 
 async function registerUser(req, res) {
-  const { name, role, email, phoneNumber, address, password, preferences, employeeId } = req.body;
+  const { name, email, phoneNumber, password, userType } = req.body;
 
   // Validate inputs
-  if (!name || !email || !phoneNumber || !password) {
+  if (!name || !email || !phoneNumber || !password || !userType) {
     return res.status(400).json({ error: 'All required fields must be filled' });
   }
 
+  // Validate email format
   if (!validateEmail(email)) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
+  // Validate password format
   if (!validatePassword(password)) {
     return res.status(400).json({
       error:
@@ -25,16 +27,21 @@ async function registerUser(req, res) {
   }
 
   try {
-    // Check if email already exists
-    const [existingUser] = await query('SELECT * FROM users WHERE email = ?', [email]);
+    // Determine which table to check based on userType
+    const table = userType === 'admin' ? 'admin' : 'guest';
+
+    console.log(table)
+
+    // Check if email already exists in the appropriate table (admin or guest)
+    const [existingUser] = await query(`SELECT * FROM ${table} WHERE email = ?`, [email]);
     if (existingUser.length > 0) {
       return res.status(409).json({ error: 'Email already in use' });
     }
 
-    // Insert user into the database
+    // Insert user into the appropriate table
     await query(
-      'INSERT INTO users (name, role, email, phone_number, address, password, employee_id, preferences) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [name, role || 'guest', email, phoneNumber, address || null, password, employeeId || null, JSON.stringify(preferences) || null]
+      `INSERT INTO ${table} (email, name, password, phone) VALUES (?, ?, ?, ?)`,
+      [email, name, password, phoneNumber]
     );
 
     // Respond with success message
