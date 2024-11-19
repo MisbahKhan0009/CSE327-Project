@@ -5,7 +5,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
   const email = document.getElementById('email').value;
   const phoneNumber = document.getElementById('phoneNumber').value;
   const password = document.getElementById('password').value;
-  const userType = document.getElementById('userType').value;
+
 
   const responseMessage = document.getElementById('responseMessage');
 
@@ -28,8 +28,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
       name,
       email,
       phoneNumber,
-      password,
-      userType
+      password
   };
 
   try {
