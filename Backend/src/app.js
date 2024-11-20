@@ -1,19 +1,18 @@
-// src/app.js
-import express, { json } from "express";
-import cors from "cors"; // Importing CORS
-import availabilityRoutes from "./routes/availability.routes"; // Corrected path
+const express = require('express');
+const cors = require('cors');
+const availabilityRoutes = require('./routes/sumaya/availiability.routes');
+const reservationRoutes = require('./routes/sumaya/reservation.routes');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Enable CORS for all origins (you can customize this for specific domains)
-app.use(cors());  // You can configure options for more control, e.g., allowed origins
+const PORT = 3000;
 
 // Middleware
-app.use(json());
+app.use(cors());
+app.use(express.json());  // For parsing application/json
 
-// Use the routes for room availability
-app.use("/api", availabilityRoutes);
+// Room availability routes
+app.use('/api/rooms', availabilityRoutes);  // '/api/rooms/available' for the room availability route
+app.use('/api/reservations', reservationRoutes);
 
 // Start the server
 app.listen(PORT, () => {

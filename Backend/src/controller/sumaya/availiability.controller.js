@@ -1,19 +1,28 @@
-// src/controllers/availability.controller.js
+const db = require('../../config/db'); // Import the MySQL connection
 
-import { default as db } from "../../config/db";
-
-const getAvailableRooms = async (req, res) => {
+async function getAvailableRooms(req, res) {
   try {
-    const query = "SELECT * FROM room"; // Retrieving rooms that are not booked
-    db.query(query, (err, results) => {
+    const queryString = "SELECT * FROM room WHERE isBooked = 0"; // Retrieving rooms that are not booked
+    
+    // Use db.query to run the query
+    db.query(queryString, (err, results) => {
       if (err) {
-        return res.status(500).json({ message: "Error retrieving rooms", error: err });
+        console.error("Error executing query:", err);
+        return res.status(500).json({ error: "Internal Server Error" });
       }
+
+      // If no rooms are found, return 404
+      if (results.length === 0) {
+        return res.status(404).json({ message: "No available rooms found" });
+      }
+
+      // Respond with available rooms
       res.status(200).json(results);
     });
   } catch (error) {
-    res.status(500).json({ message: "Server error", error: error });
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
-};
+}
 
-export default { getAvailableRooms };
+module.exports = { getAvailableRooms };

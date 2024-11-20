@@ -1,10 +1,8 @@
-// src/routes/availability.routes.js
-import { Router } from "express";
-import { getAvailableRooms } from "../controllers/availability.controller";
-
-const router = Router();
+const express = require('express');
+const router = express.Router();
+const availabilityController = require('../../controller/sumaya/availiability.controller');
 
 // Route to get available rooms
-router.get("/available", getAvailableRooms);
+router.get('/available', availabilityController.getAvailableRooms);
 
-export default router;
+module.exports = router;
