@@ -1,38 +1,46 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: #f9f9f9;
+    color: #333;
   }
   
   .container {
-    max-width: 800px;
-    margin: 20px auto;
+    max-width: 900px;
+    margin: 30px auto;
     padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
   h1 {
     text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
   }
   
   .btn {
     display: inline-block;
-    margin: 10px 0;
-    padding: 10px 15px;
-    background-color: #007bff;
+    margin: 15px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
+    font-size: 16px;
+    font-weight: bold;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s;
   }
   
   .btn:hover {
-    background-color: #0056b3;
+    background-color: #45a049;
   }
   
+  /* Table Styles */
   table {
     width: 100%;
     border-collapse: collapse;
@@ -41,15 +49,24 @@ body {
   
   table th, table td {
     border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    padding: 12px;
+    text-align: center;
   }
   
   table th {
-    background-color: #007bff;
+    background-color: #4CAF50;
     color: white;
   }
   
+  table tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  table tr:hover {
+    background-color: #ddd;
+  }
+  
+  /* Modal Styles */
   .modal {
     display: none;
     position: fixed;
@@ -58,21 +75,69 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    z-index: 10;
   }
   
   .modal-content {
     background: white;
     margin: 10% auto;
     padding: 20px;
-    width: 80%;
+    width: 90%;
     max-width: 400px;
-    border-radius: 8px;
+    border-radius: 10px;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modal-content h2 {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 20px;
+  }
+  
+  .modal-content label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+  
+  .modal-content input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .modal-content .btn {
+    width: 100%;
+    margin-top: 10px;
   }
   
   .close-btn {
-    float: right;
+    position: absolute;
+    top: 10px;
+    right: 15px;
     font-size: 1.5em;
+    font-weight: bold;
+    color: #555;
     cursor: pointer;
-    color: #333;
+    transition: color 0.3s;
+  }
+  
+  .close-btn:hover {
+    color: #000;
+  }
+  
+  /* Add Responsiveness */
+  @media (max-width: 600px) {
+    .modal-content {
+      width: 95%;
+    }
+  
+    table th, table td {
+      font-size: 14px;
+    }
   }
   
