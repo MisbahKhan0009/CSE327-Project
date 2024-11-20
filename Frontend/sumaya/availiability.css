@@ -1,0 +1,103 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body Styling with Background Image */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('BGImage.jpg'); /* Add your background image URL here */
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-attachment: fixed; /* Keeps background fixed on scroll */
+}
+
+/* Container Styling with Glassmorphism */
+.container {
+    width: 80%;
+    margin: 20px auto;
+    padding: 30px;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
+    border-radius: 20px;
+    backdrop-filter: blur(10px); /* Apply blur effect to create glassmorphism */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Soft shadow for 3D effect */
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    color: #070707;
+    margin-bottom: 20px;
+}
+
+/* Table Styling with Glassmorphism */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent table background */
+    backdrop-filter: blur(10px); /* Apply blur effect to the table */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Add shadow to the table */
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    font-size: 1rem;
+    color: #070707;
+}
+
+th {
+    background-color: rgba(109, 133, 156, 0.8);
+    color: #070707;
+    font-weight: bold;
+}
+
+td {
+    background-color: rgba(236, 240, 241, 0.4);
+}
+
+td:nth-child(5) {
+    text-align: center;
+}
+
+/* Button Styling */
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:disabled {
+    background-color: #95a5a6;
+    cursor: not-allowed;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+    }
+
+    table {
+        font-size: 14px;
+    }
+}
