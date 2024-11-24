@@ -185,3 +185,86 @@ body {
         padding: 20px;
     }
 }
+
+/* Additional Styles for the Billing Table */
+.bills-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
+  }
+  
+  .bills-container h2 {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  #bills-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+  
+  #bills-table th, #bills-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+  }
+  
+  #bills-table th {
+    background-color: #008080;
+    color: white;
+    font-weight: 500;
+  }
+  
+  #bills-table th:first-child {
+    border-top-left-radius: 10px;
+  }
+  
+  #bills-table th:last-child {
+    border-top-right-radius: 10px;
+  }
+  
+  #bills-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+  }
+  
+  #bills-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+  }
+  
+  #bills-table tbody tr {
+    transition: background-color 0.3s ease;
+  }
+  
+  #bills-table tbody tr:hover {
+    background-color: #f8f9fa;
+  }
+  
+  #bills-table td button {
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #008080;
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #bills-table td button:hover {
+    background-color: #16a085;
+  }
+  
+  #bills-table td button:active {
+    transform: translateY(2px);
+  }
+  

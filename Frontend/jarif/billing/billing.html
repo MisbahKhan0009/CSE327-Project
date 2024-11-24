@@ -28,11 +28,29 @@
       <p>Manage and process bills with ease. Use the navigation to perform actions such as creating, updating, or refunding a bill.</p>
     </div>
 
-    <div class="button-container">
-      <button onclick="window.location.href='create-bill.html'">Create Bill</button>
-      <button onclick="window.location.href='update-bill.html'">Update Bill</button>
-      <button onclick="window.location.href='refund-bill.html'">Refund Bill</button>
+  
+
+    <!-- Bills Table -->
+    <div class="bills-container">
+      <h2>Current Bills</h2>
+      <div class="table-responsive">
+        <table id="bills-table">
+          <thead>
+            <tr>
+              <th>Bill ID</th>
+              <th>Total ($)</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data will be populated dynamically via JavaScript -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
+
+  <script src="billing.js"></script>
 </body>
 </html>

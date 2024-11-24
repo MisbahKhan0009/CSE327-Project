@@ -1,10 +1,30 @@
 const db = require('../../config/db'); // Adjust the path if necessary
 
+// Function to get all bills
+async function getAllBills(req, res) {
+    try {
+      // Query the database to get all bills
+      const [bills] = await db.promise().query('SELECT * FROM bill');
+      
+      if (bills.length === 0) {
+        return res.status(404).json({ message: 'No bills found' });
+      }
+  
+      res.status(200).json(bills);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  }
+  
+
 // Utility function to calculate the total bill
 const calculateTotal = (roomCharge, servicesCharge, taxRate) => {
   const tax = (roomCharge + servicesCharge) * taxRate;
   return (roomCharge + servicesCharge + tax).toFixed(2);
 };
+
+
 
 // Function to create a new bill
 async function createBill(req, res) {
@@ -125,5 +145,6 @@ async function processRefund(req, res) {
 module.exports = {
   createBill,
   updateBill,
-  processRefund
+  processRefund,
+  getAllBills
 };
