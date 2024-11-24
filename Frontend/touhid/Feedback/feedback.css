@@ -155,7 +155,7 @@ button:active {
     padding: 10px;
     border-radius: 8px;
     font-weight: 500;
-    opacity: 0;
+    opacity: 1;
     transition: opacity 0.3s ease;
 }
 

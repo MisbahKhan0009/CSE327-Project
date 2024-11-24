@@ -1,9 +1,11 @@
 // Preload the guest email from localStorage
 document.addEventListener("DOMContentLoaded", () => {
-    const guestEmail = localStorage.getItem("guestEmail");
-    if (guestEmail) {
-        document.getElementById("guestId").value = guestEmail;
+    let guestEmail = localStorage.getItem("guestEmail");
+    if (!guestEmail) {
+        guestEmail = "tohid@ferdoush.com"; // Default email
+        localStorage.setItem("guestEmail", guestEmail); // Store the default email in localStorage
     }
+    document.getElementById("guestId").value = guestEmail;
 });
 
 // Handle star rating selection
