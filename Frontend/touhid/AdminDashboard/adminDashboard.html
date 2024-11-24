@@ -1,73 +1,139 @@
+<!-- adminDashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="adminDashboard.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="adminDashboard.css" />
 </head>
 <body>
-  <!-- Sidebar Navigation -->
-  <aside class="sidebar">
-    <h2>Admin Panel</h2>
-    <ul>
-      <li><a href="reservations.html">Reservations</a></li>
-      <li><a href="roomComparison.html">Room Comparison</a></li>
-      <li><a href="roomAvailability.html">Room Availability</a></li>
-      <li><a href="billing.html">Billing</a></li>
-    </ul>
-  </aside>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-user-shield"></i>
+            <h2>Admin Panel</h2>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="reservations.html">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Reservations</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="roomComparison.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Room Comparison</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="roomAvailability.html">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Room Availability</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="billing.html">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Billing</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
 
-  <!-- Main Content Area -->
-  <div class="main-content">
-    <!-- Profile Card -->
-    <div class="profile-container">
-      <h2>Admin Information</h2>
-      <div class="profile-card">
-        <div class="profile-item">
-          <span class="icon">👤</span>
-          <p class="label">Name</p>
-          <p id="admin-name">Loading...</p>
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="welcome-banner">
+            <h1>Admin Dashboard</h1>
+            <p>Manage hotel operations and amenities</p>
         </div>
-        <div class="profile-item">
-          <span class="icon">✉️</span>
-          <p class="label">Email</p>
-          <p id="admin-email">Loading...</p>
+
+        <!-- Profile Card -->
+        <div class="profile-container">
+            <h2><i class="fas fa-user-shield"></i> Admin Information</h2>
+            <div class="profile-card">
+                <div class="profile-item">
+                    <i class="fas fa-user icon"></i>
+                    <p class="label">Name</p>
+                    <p id="admin-name" class="value">Loading...</p>
+                </div>
+                <div class="profile-item">
+                    <i class="fas fa-envelope icon"></i>
+                    <p class="label">Email</p>
+                    <p id="admin-email" class="value">Loading...</p>
+                </div>
+                <div class="profile-item">
+                    <i class="fas fa-phone icon"></i>
+                    <p class="label">Phone</p>
+                    <p id="admin-phone" class="value">Loading...</p>
+                </div>
+            </div>
         </div>
-        <div class="profile-item">
-          <span class="icon">📞</span>
-          <p class="label">Phone</p>
-          <p id="admin-phone">Loading...</p>
+
+        <!-- Amenities Management -->
+        <div class="amenities-container">
+            <h2><i class="fas fa-concierge-bell"></i> Manage Amenities</h2>
+            <div class="table-responsive">
+                <table id="amenities-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Numbers</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="amenities-body">
+                        <!-- Rows will be dynamically populated by adminDashboard.js -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <form id="add-amenity-form">
+                <h3><i class="fas fa-plus-circle"></i> Add New Amenity</h3>
+                <div class="form-grid">
+                    <input type="text" id="amenity-name" placeholder="Name" required />
+                    <input type="text" id="amenity-description" placeholder="Description" required />
+                    <input type="number" id="amenity-numbers" placeholder="Numbers" required />
+                    <button type="submit">Add Amenity</button>
+                </div>
+            </form>
         </div>
+    </div>
+    <div id="edit-modal" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h3><i class="fas fa-edit"></i> Edit Amenity</h3>
+              <span class="close">&times;</span>
+          </div>
+          <form id="edit-amenity-form">
+              <input type="hidden" id="edit-amenity-id">
+              <div class="form-grid">
+                  <div class="form-group">
+                      <label for="edit-amenity-name">Name</label>
+                      <input type="text" id="edit-amenity-name" required />
+                  </div>
+                  <div class="form-group">
+                      <label for="edit-amenity-description">Description</label>
+                      <input type="text" id="edit-amenity-description" required />
+                  </div>
+                  <div class="form-group">
+                      <label for="edit-amenity-numbers">Numbers</label>
+                      <input type="number" id="edit-amenity-numbers" required />
+                  </div>
+                  <div class="form-actions">
+                      <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
+                      <button type="submit" class="save-btn">Save Changes</button>
+                  </div>
+              </div>
+          </form>
       </div>
-    </div>
-
-    <!-- Amenities Management -->
-    <div class="amenities-container">
-      <h2>Manage Amenities</h2>
-      <table id="amenities-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Numbers</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="amenities-body">
-          <!-- Rows will be dynamically populated by adminDashboard.js -->
-        </tbody>
-      </table>
-      <form id="add-amenity-form">
-        <h3>Add Amenity</h3>
-        <input type="text" id="amenity-name" placeholder="Name" required />
-        <input type="text" id="amenity-description" placeholder="Description" required />
-        <input type="number" id="amenity-numbers" placeholder="Numbers" required />
-        <button type="submit">Add Amenity</button>
-      </form>
-    </div>
   </div>
-
-  <script src="adminDashboard.js"></script>
+    <script src="adminDashboard.js"></script>
 </body>
 </html>
