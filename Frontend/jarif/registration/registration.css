@@ -1,55 +1,97 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #2c3e50 0%, #008080 100%);
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   margin: 0;
+  color: #ecf0f1;
 }
 
+/* Registration Container */
 .registration-container {
   background-color: white;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  width: 300px;
+  padding: 30px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  /* text-align: center; */
 }
 
 h2 {
-  text-align: center;
+  font-size: 1.8rem;
+  color: #2c3e50;
   margin-bottom: 20px;
 }
 
 form label {
   display: block;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #2c3e50;
 }
 
 form input, form select {
   width: 100%;
-  padding: 8px;
+  padding: 12px;
   margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+form input:focus, form select:focus {
+  outline: none;
+  border-color: #008080;
+  box-shadow: 0 0 4px rgba(0, 128, 128, 0.5);
 }
 
 form button {
   width: 100%;
-  padding: 10px;
-  background-color: #4CAF50;
+  padding: 12px;
+  background-color: #008080;
   color: white;
   border: none;
-  border-radius: 4px;
+  font-size: 1rem;
   cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 form button:hover {
-  background-color: #45a049;
+  background-color: #006666;
+  transform: translateY(-2px);
 }
 
 #responseMessage {
   text-align: center;
   margin-top: 10px;
   color: red;
+}
+
+/* Sign-In Link Styling */
+.signin-link {
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: #2c3e50;
+}
+
+.signin-link a {
+  color: #008080;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.signin-link a:hover {
+  color: #006666;
+  text-decoration: underline;
 }

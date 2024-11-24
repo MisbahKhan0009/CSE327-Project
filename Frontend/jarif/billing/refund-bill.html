@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Refund Bill</title>
+  <link rel="stylesheet" href="billing.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <i class="fa fa-cogs"></i>
+      <h2>Hotel Billing</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="billing.html"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
+        <li><a href="create-bill.html"><i class="fa fa-plus"></i><span>Create Bill</span></a></li>
+        <li><a href="update-bill.html"><i class="fa fa-edit"></i><span>Update Bill</span></a></li>
+        <li><a href="refund-bill.html"><i class="fa fa-undo"></i><span>Refund Bill</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <div class="form-container">
+      <h2>Refund Bill</h2>
+      <form id="refundBillForm">
+        <label for="billId">Bill ID:</label>
+        <input type="number" id="billId" name="billId" required>
+
+        <label for="refundAmount">Refund Amount ($):</label>
+        <input type="number" id="refundAmount" name="refundAmount" required>
+
+        <button type="submit">Refund</button>
+      </form>
+
+      <p id="responseMessage"></p>
+      <button onclick="window.location.href='billing.html'">Back to Dashboard</button>
+    </div>
+  </div>
+
+  <script src="billing.js"></script>
+</body>
+</html>
