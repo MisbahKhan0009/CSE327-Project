@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let guestEmail = localStorage.getItem("guestEmail");
     if (!guestEmail) {
         guestEmail = "tohid@ferdoush.com"; // Default email
-        localStorage.setItem("guestEmail", guestEmail); // Store the default email in localStorage
     }
     document.getElementById("guestId").value = guestEmail;
 });

@@ -243,3 +243,126 @@ body {
         grid-template-columns: 1fr;
     }
 }
+/* Add these styles to your existing CSS file */
+.reservation-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.reservation-container h2 {
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.reservation-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.reservation-item {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.reservation-item:hover {
+    transform: translateY(-5px);
+}
+
+.reservation-item .icon {
+    font-size: 2rem;
+    color: #008080;
+    margin-bottom: 15px;
+}
+
+.reservation-item .label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 8px;
+}
+
+.reservation-item .value {
+    color: #008080;
+    font-weight: 500;
+}
+
+.reservation-loading {
+    text-align: center;
+    color: #2c3e50;
+    padding: 20px;
+}
+/* Payment History Container */
+.payment-history-container {
+    background-color: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.payment-history-container h2 {
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+#payment-history-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+}
+
+#payment-history-table th,
+#payment-history-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+#payment-history-table th {
+    background-color: #008080;
+    color: white;
+    font-weight: 500;
+}
+
+#payment-history-table th:first-child {
+    border-top-left-radius: 10px;
+}
+
+#payment-history-table th:last-child {
+    border-top-right-radius: 10px;
+}
+
+#payment-history-table tr:last-child td:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+#payment-history-table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+#payment-history-table tbody tr {
+    transition: background-color 0.3s ease;
+}
+
+#payment-history-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.payment-history-loading {
+    text-align: center;
+    color: #2c3e50;
+    padding: 20px;
+}
