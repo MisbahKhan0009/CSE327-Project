@@ -1,8 +1,8 @@
-// src/controller/rooms.controller.js
-import db from "../../config/db.js"; // Ensure the database connection is correctly imported
+// controller/rooms.controller.js
+const db = require("../../config/db"); // CommonJS syntax for importing the database connection
 
 // Controller function to get all rooms
-export const getAllRooms = (req, res) => {
+exports.getAllRooms = (req, res) => {
   const query = "SELECT * FROM room"; // Adjust the table name if different
 
   db.query(query, (err, results) => {

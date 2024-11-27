@@ -1,9 +1,8 @@
-// src/app.js
-
-import express from "express";
-import cors from "cors"; // Import the CORS middleware
-import roomsRoutes from "./routes/misbah/rooms.routes.js";
-import reservationRoutes from "./routes/misbah/reservation.routes.js";
+// app.js
+const express = require("express");
+const cors = require("cors"); // Import the CORS middleware
+const roomsRoutes = require("./routes/misbah/rooms.routes");
+const reservationRoutes = require("./routes/misbah/reservation.routes");
 
 const app = express();
 
@@ -14,8 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 // Set up routes
-app.use("/api/rooms", roomsRoutes); //misbah
-app.use("/api/reservations", reservationRoutes); //misbah
+app.use("/api/rooms", roomsRoutes); // misbah
+app.use("/api/reservations", reservationRoutes); // misbah
 
 const PORT = 3000;
 app.listen(PORT, () => {
