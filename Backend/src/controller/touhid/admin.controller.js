@@ -1,7 +1,40 @@
-// controller/admin.controller.js
+/**
+ * @file admin.controller.js
+ * @description Controller for handling admin-related operations.
+ */
+
 const db = require('../../config/db');
 
-// Get admin information by email
+/**
+ * Get admin information by email.
+ * 
+ * This function retrieves admin details (email, name, and phone) from the database based on the provided email.
+ * If no email is provided in the request, a default email (`kuddus@ali.com`) is used for testing purposes.
+ * 
+ * @function getAdminInfo
+ * @param {Object} req - Express request object.
+ * @param {Object} req.query - Query parameters in the request.
+ * @param {string} [req.query.email] - The email of the admin to search for.
+ * @param {Object} res - Express response object.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Request example
+ * // GET /api/admin/info?email=kuddus@ali.com
+ * 
+ * // Response example (200 OK)
+ * // {
+ * //   "email": "kuddus@ali.com",
+ * //   "name": "Kuddus Ali",
+ * //   "phone": "1234567890"
+ * // }
+ * 
+ * // Response example (404 Not Found)
+ * // {
+ * //   "message": "Admin not found"
+ * // }
+ */
 exports.getAdminInfo = (req, res) => {
   const adminEmail = req.query.email || "kuddus@ali.com"; // Default email if none provided for testing
 
