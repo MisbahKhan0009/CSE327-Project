@@ -13,8 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 // Set up routes
-app.use("/api/rooms", roomsRoutes); // misbah
-app.use("/api/reservations", reservationRoutes); // misbah
+app.use("/api/roomList", roomsRoutes); // misbah
+app.use("/api/reservationList", reservationRoutes); // misbah
 
 const PORT = 3000;
 app.listen(PORT, () => {
