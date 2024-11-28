@@ -1,9 +1,38 @@
-// controller/guest.controller.js
-const db = require('../../config/db'); // Assuming you're using a database connection file
+/**
+ * @file guest.controller.js
+ * @description Controller for handling guest-related operations, such as retrieving guest information by email.
+ */
 
-// Get guest information by email
+const db = require('../../config/db'); // Database connection file
+
+/**
+ * Retrieve guest information by email.
+ * 
+ * @function getGuestInfo
+ * @param {Object} req - Express request object.
+ * @param {Object} req.query - Query parameters from the request.
+ * @param {string} req.query.email - The email address of the guest to retrieve.
+ * @param {Object} res - Express response object.
+ * @returns {Object} - Guest information including email, name, and phone number.
+ * 
+ * @example
+ * // Request example
+ * // GET /api/guest/info?email="tohid@ferdoush.com"
+ * 
+ * // Response example (200 OK)
+ * // { "email": "tohid@ferdoush.com", "name": "Touhid Ferdoush", "phone": "123456789" }
+ * 
+ * // Error response example (404 Not Found)
+ * // { "message": "Guest not found" }
+ * 
+ * // Error response example (500 Internal Server Error)
+ * // { "message": "Database error", "error": <error details> }
+ * 
+ * @throws {404} - If no guest is found with the provided email.
+ * @throws {500} - If there is a database error.
+ */
 exports.getGuestInfo = (req, res) => {
-  const guestEmail = req.query.email; // Default email for testing
+  const guestEmail = req.query.email; 
 
   const query = 'SELECT email, name, phone FROM guest WHERE email = ?';
   db.query(query, [guestEmail], (err, results) => {
@@ -20,4 +49,3 @@ exports.getGuestInfo = (req, res) => {
     res.status(200).json(results[0]);
   });
 };
-

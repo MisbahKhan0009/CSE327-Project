@@ -1,10 +1,20 @@
+/**
+ * @file guestDashboard.js
+ * @description This file contains functions to fetch and display guest data, reservation details, amenities, and payment history
+ * for the guest on their dashboard.
+ */
 // Fetch and display guest data
+/**
+ * @function fetchAndDisplayGuestData
+ * @description Fetches the guest's personal data using their email, which is either stored in `localStorage` or set to a default value.
+ * If the data is successfully retrieved, it populates the profile card with guest details (name, email, and phone).
+ * In case of an error, an error message is displayed instead of the guest information.
+ */
 async function fetchAndDisplayGuestData() {
-  // Get the guest email from localStorage
   let guestEmail = localStorage.getItem("guestEmail");
   if (!guestEmail) {
       guestEmail = "tohid@ferdoush.com"; // Default email
-      localStorage.setItem("guestEmail", guestEmail); // Store the default email in localStorage
+      localStorage.setItem("guestEmail", guestEmail);
   }
   const apiURL = `http://localhost:3000/api/guest/info?email=${guestEmail}`;
 
@@ -28,17 +38,23 @@ async function fetchAndDisplayGuestData() {
 }
 
 // Fetch and display current reservation
+/**
+ * @function fetchAndDisplayReservation
+ * @description Fetches the current reservation details for the guest and displays them.
+ * If no current reservation is found, a message indicating no reservation is shown.
+ * The reservation details include room category, check-in and check-out dates, and booking status.
+ */
 async function fetchAndDisplayReservation() {
   // Get the guest email from localStorage
-  const guestEmail = localStorage.getItem("guestEmail") || "misbah@khan.com"; // Default email for testing
+  const guestEmail = localStorage.getItem("guestEmail") || "tohid@ferdoush.com"; 
   const apiURL = `http://localhost:3000/api/getreservations/current-reservation?guestId=${guestEmail}`;
 
   try {
     const response = await fetch(apiURL);
     
-    // Check the response status
+
     if (response.status === 404) {
-      // This means no current reservation was found
+ 
       const reservationContainer = document.getElementById("reservation-details");
       reservationContainer.innerHTML = `
         <div class="reservation-loading">No current reservation found.</div>
@@ -46,7 +62,7 @@ async function fetchAndDisplayReservation() {
       return;
     }
 
-    // Check if the response is not ok for other error cases
+
     if (!response.ok) {
       throw new Error(`Error: ${response.statusText}`);
     }
@@ -54,7 +70,7 @@ async function fetchAndDisplayReservation() {
     const reservations = await response.json();
 
     const reservationContainer = document.getElementById("reservation-details");
-    reservationContainer.innerHTML = ""; // Clear previous data
+    reservationContainer.innerHTML = ""; 
 
     if (reservations.length === 0) {
       reservationContainer.innerHTML = `
@@ -63,10 +79,9 @@ async function fetchAndDisplayReservation() {
       return;
     }
 
-    // Assuming the first reservation in the array is the current one
+
     const reservation = reservations[0];
 
-    // Create reservation details card
     const reservationCard = `
       <div class="reservation-item">
         <i class="fas fa-bed icon"></i>
@@ -99,7 +114,13 @@ async function fetchAndDisplayReservation() {
     `;
   }
 }
-// Fetch and display amenities (unchanged)
+
+// Fetch and display amenities
+/**
+ * @function fetchAndDisplayAmenities
+ * @description Fetches and displays available amenities in a table.
+ * Each amenity's name, description, and number are displayed in the table. 
+ */
 async function fetchAndDisplayAmenities() {
   const apiURL = "http://localhost:3000/api/guest/amenities";
   try {
@@ -110,7 +131,7 @@ async function fetchAndDisplayAmenities() {
     const amenities = await response.json();
 
     const tbody = document.getElementById("amenities-body");
-    tbody.innerHTML = ""; // Clear previous data
+    tbody.innerHTML = ""; 
 
     amenities.forEach((amenity) => {
       const row = document.createElement("tr");
@@ -136,9 +157,17 @@ async function fetchAndDisplayAmenities() {
     console.error("Error fetching amenities:", error);
   }
 }
+
+// Fetch and display payment history
+/**
+ * @function fetchAndDisplayPaymentHistory
+ * @description Fetches and displays the payment history for the guest in a table.
+ * Each payment's bill ID, total amount, and payment date are displayed in the table.
+ * If there is no payment history, a message is shown. 
+ * If an error occurs during fetching, an error message is displayed.
+ */
 async function fetchAndDisplayPaymentHistory() {
-  // Get the guest email from localStorage
-  const guestEmail = localStorage.getItem("guestEmail") || "misbah@khan.com"; // Default email for testing
+  const guestEmail = localStorage.getItem("guestEmail") || "tohid@ferdoush.com"; // Default email for testing
   const apiURL = `http://localhost:3000/api/payments/payment-history?guestEmail=${guestEmail}`;
 
   try {
@@ -148,16 +177,14 @@ async function fetchAndDisplayPaymentHistory() {
         'Content-Type': 'application/json'
       }
     });
-    
-    // Parse the response JSON
+
+   
     const data = await response.json();
-
     const paymentHistoryBody = document.getElementById("payment-history-body");
-    
-    // Clear previous data
-    paymentHistoryBody.innerHTML = ""; 
 
-    // Comprehensive error handling
+    paymentHistoryBody.innerHTML = "";
+
+
     if (!response.ok) {
       console.error('Response not OK:', data);
       paymentHistoryBody.innerHTML = `
@@ -170,7 +197,7 @@ async function fetchAndDisplayPaymentHistory() {
       return;
     }
 
-    // Check if data is empty
+  
     if (!data || data.length === 0) {
       paymentHistoryBody.innerHTML = `
         <tr>
@@ -182,11 +209,11 @@ async function fetchAndDisplayPaymentHistory() {
       return;
     }
 
-    // Populate the table with payment history
+  
     data.forEach((payment) => {
       const row = document.createElement("tr");
 
-      // Validate payment object properties
+  
       const billId = payment.bill_id ?? 'N/A';
       const total = payment.total ?? 0;
       const paymentDate = payment.payment_date ? new Date(payment.payment_date).toLocaleDateString() : 'N/A';
@@ -212,7 +239,13 @@ async function fetchAndDisplayPaymentHistory() {
     `;
   }
 }
-//DOMContentLoaded event listener
+
+// Event listener for DOM content loaded
+/**
+ * @event DOMContentLoaded
+ * @description This event listener triggers the functions to fetch and display guest data, reservation details, amenities, 
+ * and payment history when the DOM content has loaded.
+ */
 document.addEventListener("DOMContentLoaded", () => {
   fetchAndDisplayGuestData();
   fetchAndDisplayReservation();

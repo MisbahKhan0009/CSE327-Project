@@ -1,10 +1,49 @@
-const db = require('../../config/db');
+/**
+ * @file getreservation.controller.js
+ * @description Controller for handling operations related to reservations, such as fetching current reservation details for a guest.
+ */
 
-// Function to fetch current reservation details
+const db = require('../../config/db'); // Database connection file
+
+/**
+ * Fetch current reservation details for a guest.
+ * 
+ * @function getCurrentReservation
+ * @param {Object} req - Express request object.
+ * @param {Object} req.query - Query parameters from the request.
+ * @param {string} req.query.guestId - The ID of the guest whose reservation details are being fetched.
+ * @param {Object} res - Express response object.
+ * @returns {Array<Object>} 200 - List of current reservation details, including room category, check-in date, check-out date, and booking status.
+ * @returns {Object} 400 - Error message if the guest ID is not provided.
+ * @returns {Object} 404 - Error message if no current reservations are found for the guest.
+ * @returns {Object} 500 - Error message if there is a database error.
+ * 
+ * @example
+ * // Request example
+ * // GET /api/getreservations/current-reservation?guestId="tohid@ferdoush.com"
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   {
+ * //     "roomCategory": "Double",
+ * //     "checkInDate": "2024-11-20",
+ * //     "checkOutDate": "2024-11-25",
+ * //     "bookingStatus": "Active"
+ * //   }
+ * // ]
+ * 
+ * // Error response example (400 Bad Request)
+ * // { "message": "Guest email (guestId) is required." }
+ * 
+ * // Error response example (404 Not Found)
+ * // { "message": "No current reservation found for this guest." }
+ * 
+ * // Error response example (500 Internal Server Error)
+ * // { "message": "An error occurred while fetching reservation details." }
+ */
 const getCurrentReservation = (req, res) => {
     const { guestId } = req.query;
 
-    // Validate if guestId is provided
     if (!guestId) {
         return res.status(400).json({ message: "Guest email (guestId) is required." });
     }
@@ -26,7 +65,6 @@ const getCurrentReservation = (req, res) => {
         AND res.checkOut_date > ?
     `;
 
-    // Execute the query
     db.query(query, [today, guestId, today], (err, results) => {
         if (err) {
             console.error("Error fetching reservation details:", err);
