@@ -2,8 +2,8 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
   height: 100vh;
+  font-family: Arial, sans-serif;
   background-image: url("BG-RC.jpg");
   backdrop-filter: brightness(0.35) blur(10px);
   background-size: cover;
@@ -18,77 +18,74 @@ body {
 /* Container Styling */
 .container {
   text-align: center;
+  height: screen;
   padding: 20px;
   color: white;
   width: 80%;
 }
 
-/* Glassmorphism Effect on Table */
-#room-comparison-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-  background: rgba(255, 255, 255, 0.096); /* Semi-transparent background */
-  backdrop-filter: blur(50px); /* Glassmorphism effect */
+/* Pricing Cards Container */
+.pricing-cards {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Pricing Card Styling */
+.pricing-card {
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
-  overflow: hidden;
-}
-
-#room-comparison-table th,
-#room-comparison-table td {
-  padding: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Light borders */
-}
-
-/* Header Styling */
-#room-comparison-table th {
-  font-size: 18px;
-  text-transform: uppercase;
-  color: #f0f0f0;
-  text-align: center; /* Header text center */
-}
-
-/* Cell Styling */
-#room-comparison-table td {
-  font-size: 16px;
-  color: #f0f0f0;
-  text-align: center; /* Center text for all cells */
-}
-
-/* Left-align the description column */
-#room-comparison-table td.description {
-  text-align: left; /* Left align description */
-}
-
-/* Background color for the table */
-#room-comparison-table {
-  background-color: rgba(255, 255, 255, 0.2);
-}
-
-/* Badge Styling for Available and Booked */
-.badge {
-  padding: 5px 10px;
-  border-radius: 8px;
-  font-size: 14px;
-  color: white;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   text-align: center;
-  border-width: 1px; /* Border width */
-  border-style: solid; /* Border style */
-  border-color: transparent; /* Initial border color */
+  width: 250px;
+  transition: transform 0.3s ease-in-out;
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  cursor: pointer;
 }
 
-/* Available Badge */
-.badge.available {
-  background-color: rgba(0, 255, 0, 0.4); /* Brighter green with more opacity */
-  color: white; /* White text for contrast */
-  border-color: #00ff3c; /* Lighter green border */
+.pricing-card:hover {
+  transform: translateY(-10px); /* Lift effect on hover */
 }
 
-/* Booked Badge */
-.badge.booked {
-  background-color: rgba(255, 0, 0, 0.4); /* Brighter red with more opacity */
-  color: white; /* White text for contrast */
-  border-color: #ff0019; /* Lighter red border */
+/* Pricing Styling */
+.pricing-card .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #cecedf;
 }
 
+/* Features Styling */
+.features p {
+  margin: 10px 0;
+  color: #f0f0f0;
+}
+
+.features i {
+  margin-right: 8px;
+  color: #00f0ff; /* Blue color for icons */
+}
+
+/* Button Styling */
+.btn {
+  background-color: #00f0ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0099cc;
+}
+
+/* Additional Description Styling */
+.details {
+  color: #f0f0f0;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
