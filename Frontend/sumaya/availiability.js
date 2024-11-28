@@ -1,7 +1,43 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const roomsTableBody = document.getElementById('roomsBody');
+/**
+ * @file rooms.js
+ * @description Frontend script for fetching and displaying available rooms from the API.
+ */
 
-    // Function to fetch available rooms from the API
+document.addEventListener("DOMContentLoaded", function () {
+    const roomsTableBody = document.getElementById('roomsBody'); // Table body to display room data
+
+    /**
+     * Fetch available rooms.
+     * 
+     * This function fetches the list of available rooms from the backend API and displays them in the table.
+     * If no rooms are available or an error occurs, appropriate messages are shown.
+     * 
+     * @async
+     * @function fetchAvailableRooms
+     * 
+     * @returns {Promise<void>}
+     * 
+     * @example
+     * // API response example
+     * // [
+     * //   {
+     * //     "room_id": 1,
+     * //     "price": 100,
+     * //     "category": "Deluxe",
+     * //     "description": "Spacious room with a king-sized bed",
+     * //     "isBooked": 0
+     * //   }
+     * // ]
+     * 
+     * @example
+     * // Table display example
+     * // | Room ID | Price  | Category | Description               | Action     |
+     * // |---------|--------|----------|---------------------------|------------|
+     * // | 1       | $100   | Deluxe   | Spacious room with a ...  | Book Now   |
+     * 
+     * // Error message example
+     * // <tr><td colspan="5" style="text-align:center;">Error fetching data</td></tr>
+     */
     async function fetchAvailableRooms() {
         try {
             const response = await fetch('http://localhost:3000/api/rooms/available'); // Update the URL based on your backend
