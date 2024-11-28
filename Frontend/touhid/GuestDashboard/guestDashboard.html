@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guest Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="guestDashboard.css" />
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <i class="fas fa-user-circle"></i>
+            <h2>Guest Panel</h2>
+        </div>
+        <nav>
+            <ul>
+                <li>
+                    <a href="../Feedback/feedback.html">
+                        <i class="fas fa-comments"></i>
+                        <span>Feedback</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="roomComparison.html">
+                        <i class="fas fa-exchange-alt"></i>
+                        <span>Room Comparison</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="roomAvailability.html">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Room Availability</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="billing.html">
+                        <i class="fas fa-file-invoice-dollar"></i>
+                        <span>Billing</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-content">
+        <div class="welcome-banner">
+            <h1>Welcome Back</h1>
+            <p>Manage your stay and explore our amenities</p>
+        </div>
+
+        <!-- Profile Card -->
+        <div class="profile-container">
+            <h2><i class="fas fa-user-circle"></i> Guest Information</h2>
+            <div class="profile-card">
+                <div class="profile-item">
+                    <i class="fas fa-user icon"></i>
+                    <p class="label">Name</p>
+                    <p id="guest-name" class="value">Loading...</p>
+                </div>
+                <div class="profile-item">
+                    <i class="fas fa-envelope icon"></i>
+                    <p class="label">Email</p>
+                    <p id="guest-email" class="value">Loading...</p>
+                </div>
+                <div class="profile-item">
+                    <i class="fas fa-phone icon"></i>
+                    <p class="label">Phone</p>
+                    <p id="guest-phone" class="value">Loading...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reservation Details -->
+        <div class="reservation-container">
+            <h2><i class="fas fa-calendar-alt"></i> Current Reservation</h2>
+            <div class="reservation-card" id="reservation-details">
+                <div class="reservation-loading">Loading reservation details...</div>
+            </div>
+        </div>
+        <div class="payment-history-container">
+            <h2><i class="fas fa-receipt"></i> Payment History</h2>
+            <div class="table-responsive">
+                <table id="payment-history-table">
+                    <thead>
+                        <tr>
+                            <th>Bill ID</th>
+                            <th>Total Amount</th>
+                            <th>Payment Date</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payment-history-body">
+                        <!-- Rows will be dynamically populated by guestDashboard.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Amenities View -->
+        <div class="amenities-container">
+            <h2><i class="fas fa-concierge-bell"></i> Amenities</h2>
+            <div class="table-responsive">
+                <table id="amenities-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Numbers</th>
+                        </tr>
+                    </thead>
+                    <tbody id="amenities-body">
+                        <!-- Rows will be dynamically populated by guestDashboard.js -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="guestDashboard.js"></script>
+</body>
+</html>
