@@ -9,7 +9,6 @@ const db = require('../../config/db');
  * Get admin information by email.
  * 
  * This function retrieves admin details (email, name, and phone) from the database based on the provided email.
- * If no email is provided in the request, a default email (`kuddus@ali.com`) is used for testing purposes.
  * 
  * @function getAdminInfo
  * @param {Object} req - Express request object.
@@ -36,7 +35,7 @@ const db = require('../../config/db');
  * // }
  */
 exports.getAdminInfo = (req, res) => {
-  const adminEmail = req.query.email || "kuddus@ali.com"; // Default email if none provided for testing
+  const adminEmail = req.query.email;
 
   const query = 'SELECT email, name, phone FROM admin WHERE email = ?';
   db.query(query, [adminEmail], (err, results) => {

@@ -1,28 +1,50 @@
-// adminDashboard.js
+/**
+ * @file adminDashboard.js
+ * @description Manages the admin dashboard functionalities such as fetching admin data, managing amenities, 
+ * and handling modal operations for editing amenities.
+ */
 
-// Modal elements and state
+/** Modal element for editing amenities */
 const modal = document.getElementById("edit-modal");
+
+/** Stores the ID of the amenity currently being edited */
 let currentAmenityId = null;
 
-// Modal functions
+/**
+ * Opens the edit modal.
+ */
 function openModal() {
     modal.classList.add("show");
 }
 
+/**
+ * Closes the edit modal.
+ */
 function closeModal() {
     modal.classList.remove("show");
 }
 
-// Close modal when clicking outside
-window.onclick = function(event) {
+/**
+ * Closes the modal when clicking outside of it.
+ * @param {Event} event - The click event.
+ */
+window.onclick = function (event) {
     if (event.target === modal) {
         closeModal();
     }
-}
+};
 
-// Fetch and display admin data
+/**
+ * Fetches and displays admin data on the dashboard.
+ * Populates the admin profile card with the fetched data.
+ */
 async function fetchAndDisplayAdminData() {
-    const apiURL = "http://localhost:3000/api/admin/info";
+    let adminEmail = localStorage.getItem("adminEmail");
+    if (!adminEmail) {
+        adminEmail = "kuddus@ali.com"; // Default email
+        localStorage.setItem("adminEmail", adminEmail);
+    }
+    const apiURL = `http://localhost:3000/api/admin/info?email=${adminEmail}`;
     try {
         const response = await fetch(apiURL);
         if (!response.ok) {
@@ -42,7 +64,11 @@ async function fetchAndDisplayAdminData() {
     }
 }
 
-// Create table row function
+/**
+ * Creates a table row for an amenity.
+ * @param {Object} amenity - The amenity object containing its details.
+ * @returns {HTMLElement} - The created table row.
+ */
 function createTableRow(amenity) {
     const row = document.createElement("tr");
 
@@ -73,7 +99,10 @@ function createTableRow(amenity) {
     return row;
 }
 
-// Fetch and display amenities
+/**
+ * Fetches and displays the list of amenities.
+ * Populates the amenities table with the fetched data.
+ */
 async function fetchAndDisplayAmenities() {
     const apiURL = "http://localhost:3000/api/amenities";
     try {
@@ -81,7 +110,7 @@ async function fetchAndDisplayAmenities() {
         const amenities = await response.json();
 
         const tbody = document.getElementById("amenities-body");
-        tbody.innerHTML = ""; // Clear previous data
+        tbody.innerHTML = ""; 
 
         amenities.forEach((amenity) => {
             const row = createTableRow(amenity);
@@ -92,20 +121,25 @@ async function fetchAndDisplayAmenities() {
     }
 }
 
-// Edit amenity function
+/**
+ * Opens the edit modal with the details of the selected amenity pre-filled.
+ * @param {Object} amenity - The amenity object to edit.
+ */
 async function editAmenity(amenity) {
     currentAmenityId = amenity.amenity_id;
-    
-    // Populate the form
+
     document.getElementById("edit-amenity-id").value = amenity.amenity_id;
     document.getElementById("edit-amenity-name").value = amenity.name;
     document.getElementById("edit-amenity-description").value = amenity.description;
     document.getElementById("edit-amenity-numbers").value = amenity.numbers;
-    
+
     openModal();
 }
 
-// Add amenity function
+/**
+ * Adds a new amenity based on the form data.
+ * @param {Event} event - The form submission event.
+ */
 async function addAmenity(event) {
     event.preventDefault();
     const name = document.getElementById("amenity-name").value;
@@ -121,7 +155,7 @@ async function addAmenity(event) {
 
         if (response.ok) {
             alert("Amenity added successfully!");
-            fetchAndDisplayAmenities(); // Refresh amenities
+            fetchAndDisplayAmenities(); 
             document.getElementById("add-amenity-form").reset();
         } else {
             throw new Error("Failed to add amenity");
@@ -132,26 +166,29 @@ async function addAmenity(event) {
     }
 }
 
-// Handle edit form submission
+/**
+ * Handles the edit form submission to update the amenity details.
+ * @param {Event} event - The form submission event.
+ */
 async function handleEditFormSubmit(event) {
     event.preventDefault();
-    
+
     const formData = {
         name: document.getElementById("edit-amenity-name").value,
         description: document.getElementById("edit-amenity-description").value,
-        numbers: document.getElementById("edit-amenity-numbers").value
+        numbers: document.getElementById("edit-amenity-numbers").value,
     };
 
     try {
         const response = await fetch(`http://localhost:3000/api/amenities/${currentAmenityId}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData)
+            body: JSON.stringify(formData),
         });
 
         if (response.ok) {
             closeModal();
-            await fetchAndDisplayAmenities(); // Refresh the table
+            await fetchAndDisplayAmenities(); 
         } else {
             throw new Error("Failed to update amenity");
         }
@@ -165,12 +202,10 @@ async function handleEditFormSubmit(event) {
 document.addEventListener("DOMContentLoaded", () => {
     fetchAndDisplayAdminData();
     fetchAndDisplayAmenities();
-    
-    // Add event listeners
+
     document.getElementById("add-amenity-form").addEventListener("submit", addAmenity);
     document.getElementById("edit-amenity-form").addEventListener("submit", handleEditFormSubmit);
-    
-    // Close button in modal
+
     const closeButton = document.querySelector(".close");
     if (closeButton) {
         closeButton.addEventListener("click", closeModal);
