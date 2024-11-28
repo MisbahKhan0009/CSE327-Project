@@ -32,6 +32,16 @@ app.use('/api/feedback', feedbackRoutes);
 app.use("/api/getreservations", reservationRoutes);
 app.use("/api/payments", paymentHistoryRoutes);
 // Routes Touhid(Ends)
+
+
+//routes
+app.use("/api/register", registrationRoutes);
+app.use("/api/login", loginRoutes);
+app.use("/api/bills", billingRoutes);  // Use billing routes
+
+
+
+// Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

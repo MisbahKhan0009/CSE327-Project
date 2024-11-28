@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Billing Dashboard</title>
+  <link rel="stylesheet" href="billing.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <i class="fa fa-cogs"></i>
+      <h2>Hotel Billing</h2>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="billing.html"><i class="fa fa-tachometer"></i><span>Dashboard</span></a></li>
+        <li><a href="create-bill.html"><i class="fa fa-plus"></i><span>Create Bill</span></a></li>
+        <li><a href="update-bill.html"><i class="fa fa-edit"></i><span>Update Bill</span></a></li>
+        <li><a href="refund-bill.html"><i class="fa fa-undo"></i><span>Refund Bill</span></a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="main-content">
+    <div class="welcome-banner">
+      <h1>Welcome to the Billing Dashboard</h1>
+      <p>Manage and process bills with ease. Use the navigation to perform actions such as creating, updating, or refunding a bill.</p>
+    </div>
+
+  
+
+    <!-- Bills Table -->
+    <div class="bills-container">
+      <h2>Current Bills</h2>
+      <div class="table-responsive">
+        <table id="bills-table">
+          <thead>
+            <tr>
+              <th>Bill ID</th>
+              <th>Total ($)</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data will be populated dynamically via JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="billing.js"></script>
+</body>
+</html>
