@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Management Registration</title>
+    <link rel="stylesheet" href="registration.css">
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Register</h2>
+        <form id="registrationForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <!-- Sign-in link -->
+        <p class="signin-link">Have an account? <a href="../login/login.html">Sign in here</a></p>
+
+        <p id="responseMessage"></p>
+    </div>
+
+    <script src="registration.js"></script>
+</body>
+</html>

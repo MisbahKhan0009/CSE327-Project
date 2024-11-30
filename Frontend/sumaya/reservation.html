@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Reservations</title>
+  <link rel="stylesheet" href="reservation.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Hotel Reservations</h1>
+    <button id="createReservationBtn" class="btn">Create Reservation</button>
+
+    <table id="reservationTable">
+      <thead>
+        <tr>
+          <th>Reservation ID</th>
+          <th>Room ID</th>
+          <th>Guest Name</th>
+          <th>Check-In Date</th>
+          <th>Check-Out Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Reservations will be dynamically inserted here -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Modal -->
+  <div id="reservationModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h2>Create Reservation</h2>
+      <form id="reservationForm">
+        <label for="room_id">Room ID:</label>
+        <input type="number" id="room_id" name="room_id" required>
+
+        <label for="guest_name">Guest Name:</label>
+        <input type="text" id="guest_name" name="guest_name" required>
+
+        <label for="checkIn_date">Check-In Date:</label>
+        <input type="date" id="checkIn_date" name="checkIn_date" required>
+
+        <label for="checkOut_date">Check-Out Date:</label>
+        <input type="date" id="checkOut_date" name="checkOut_date" required>
+
+        <button type="submit" class="btn">Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="reservation.js"></script>
+</body>
+</html>
