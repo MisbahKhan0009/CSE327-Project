@@ -1,7 +1,7 @@
 const request = require("supertest");
 const express = require("express");
 const reservationController = require("../controller/misbah/reservation.controller");
-const db = require("../config/db")
+const db = require("../config/db");
 const app = express();
 
 app.use(express.json()); // For parsing JSON request bodies
@@ -58,7 +58,7 @@ describe("Reservation Controller", () => {
 
       expect(response.status).toBe(500);
       expect(response.body.message).toBe("Error creating reservation");
-      expect(response.body.error.message).toBe("Database error");
+      expect(response.body.error).toBe("Database error"); // Ensure consistent error format
     });
   });
 
@@ -99,7 +99,7 @@ describe("Reservation Controller", () => {
 
       expect(response.status).toBe(500);
       expect(response.body.message).toBe("Error fetching reservations");
-      expect(response.body.error.message).toBe("Database error");
+      expect(response.body.error).toBe("Database error"); // Ensure consistent error format
     });
   });
 });
