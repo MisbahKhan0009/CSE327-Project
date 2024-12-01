@@ -7,10 +7,10 @@ const db = require("../../config/db"); // Import database connection
 
 /**
  * Create a new reservation.
- * 
+ *
  * This function creates a new reservation in the `reservation` table, using the guest's information,
  * room selection, and check-in/check-out dates. It also updates the room's availability status.
- * 
+ *
  * @function createReservation
  * @param {Object} req - Express request object.
  * @param {Object} req.body - Request body containing reservation details.
@@ -20,9 +20,9 @@ const db = require("../../config/db"); // Import database connection
  * @param {string} req.body.checkOut_date - The check-out date (e.g., 'YYYY-MM-DD').
  * @param {number} req.body.bill_id - The ID of the bill associated with the reservation.
  * @param {Object} res - Express response object.
- * 
+ *
  * @returns {void}
- * 
+ *
  * @example
  * // Request example
  * // POST /api/reservations
@@ -33,24 +33,23 @@ const db = require("../../config/db"); // Import database connection
  * //   "checkOut_date": "2024-12-05",
  * //   "bill_id": 123
  * // }
- * 
+ *
  * // Response example (201 Created)
  * // {
  * //   "message": "Reservation created successfully",
  * //   "reservation_id": 456
  * // }
- * 
+ *
  * // Response example (500 Internal Server Error)
  * // {
  * //   "message": "Error creating reservation",
- * //   "error": "Error details"
+ * //   "error": "Database error"
  * // }
  */
 exports.createReservation = async (req, res) => {
   const { guest_id, room_id, checkIn_date, checkOut_date, bill_id } = req.body;
 
   try {
-    // Insert reservation into the database
     const query = `
       INSERT INTO reservation (guest_id, room_id, checkIn_date, checkOut_date, bill_id)
       VALUES (?, ?, ?, ?, ?)`;
@@ -74,26 +73,33 @@ exports.createReservation = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error creating reservation", error });
+
+    // Format error consistently
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    res.status(500).json({
+      message: "Error creating reservation",
+      error: errorMessage,
+    });
   }
 };
 
 /**
  * Get all reservations.
- * 
+ *
  * This function retrieves all reservations from the `reservation` table.
  * It is typically used for admin purposes to view all reservations in the system.
- * 
+ *
  * @function getAllReservations
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
- * 
+ *
  * @returns {void}
- * 
+ *
  * @example
  * // Request example
  * // GET /api/reservations
- * 
+ *
  * // Response example (200 OK)
  * // [
  * //   {
@@ -113,11 +119,11 @@ exports.createReservation = async (req, res) => {
  * //     "bill_id": 124
  * //   }
  * // ]
- * 
+ *
  * // Response example (500 Internal Server Error)
  * // {
  * //   "message": "Error fetching reservations",
- * //   "error": "Error details"
+ * //   "error": "Database error"
  * // }
  */
 exports.getAllReservations = async (req, res) => {
@@ -128,6 +134,13 @@ exports.getAllReservations = async (req, res) => {
     res.status(200).json(result);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ message: "Error fetching reservations", error });
+
+    // Format error consistently
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    res.status(500).json({
+      message: "Error fetching reservations",
+      error: errorMessage,
+    });
   }
 };

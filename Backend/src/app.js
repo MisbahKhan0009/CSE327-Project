@@ -21,34 +21,33 @@ const app = express();
 app.use(cors());
 const PORT = 3000;
 
-
 // Middleware
 app.use(cors());
 app.use(express.json()); // For parsing application/json
 app.use(bodyParser.json());
 
 // Room availability routes
-app.use('/api/rooms', availabilityRoutes);  // '/api/rooms/available' for the room availability route
-app.use('/api/reservations', reservationRoutesSumaiya);
+app.use('/api/rooms', availabilityRoutes);  // '/api/rooms/available' for the room availability route // working
+app.use('/api/reservations', reservationRoutesSumaiya); //working
 
 
 // Routes Touhid(Begains)
-app.use("/api/admin", adminRoutes);
-app.use("/api/amenities", amenityRoutes);
-app.use("/api/guest", guestRoutes);
-app.use("/api/feedback", feedbackRoutes);
-app.use("/api/getreservations", reservationRoutes);
-app.use("/api/payments", paymentHistoryRoutes);
+app.use("/api/admin", adminRoutes); //working
+app.use("/api/amenities", amenityRoutes); //working
+app.use("/api/guest", guestRoutes);  //working //http://localhost:3000/api/guest/info?email=misbah@khan.com
+app.use("/api/feedback", feedbackRoutes); // working
+app.use("/api/getreservations", reservationRoutes); // working http://localhost:3000/api/getreservations/current-reservation?guestId=%22tohid@ferdoush.com
+app.use("/api/payments", paymentHistoryRoutes); //working //http://localhost:3000/api/payments/payment-history?guestEmail=tohid@ferdoush.com
 // Routes Touhid(Ends)
 
 //routes
-app.use("/api/register", registrationRoutes);
-app.use("/api/login", loginRoutes);
-app.use("/api/bills", billingRoutes); // Use billing routes
+app.use("/api/register", registrationRoutes); //working
+app.use("/api/login", loginRoutes); //working
+app.use("/api/bills", billingRoutes);  //working
 
 // Set up routes
-app.use("/api/roomList", roomsRoutes); // misbah
-app.use("/api/reservationList", reservationRoutesMisba); // misbah
+app.use("/api/roomList", roomsRoutes); // misbah //working
+app.use("/api/reservationList", reservationRoutesMisba); // misbah // working
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
