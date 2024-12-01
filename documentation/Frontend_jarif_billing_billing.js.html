@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Frontend/jarif/billing/billing.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Frontend/jarif/billing/billing.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file billing.js
+ * @description Frontend script for managing billing operations, including fetching bills, creating new bills, updating bills, and processing refunds.
+ */
+
+/**
+ * Formats a date string into '31 October, 2024' format.
+ *
+ * @function formatDate
+ * @param {string} dateString - The date string to format.
+ * @returns {string} - The formatted date string.
+ */
+function formatDate(dateString) {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat('en-GB', options).format(date);
+}
+
+/**
+* Fetches all bills from the backend and displays them in a table.
+*
+* @async
+* @function fetchBills
+* @returns {void}
+*/
+async function fetchBills() {
+  try {
+      const response = await fetch('http://localhost:3000/api/bills');
+      const data = await response.json();
+
+      if (response.ok) {
+          displayBills(data);
+      } else {
+          document.getElementById('responseMessage').textContent = data.message || 'No bills found.';
+      }
+  } catch (error) {
+      console.error('Error fetching bills:', error);
+  }
+}
+
+/**
+* Displays a list of bills in a table on the frontend.
+*
+* @function displayBills
+* @param {Array&lt;Object>} bills - The list of bills to display.
+*/
+function displayBills(bills) {
+  const billsTableBody = document.querySelector('#bills-table tbody');
+  billsTableBody.innerHTML = ''; // Clear any existing rows
+
+  bills.forEach(bill => {
+      const row = document.createElement('tr');
+      row.innerHTML = `
+          &lt;td>${bill.billId}&lt;/td>
+          &lt;td>${bill.total}&lt;/td>
+          &lt;td>${formatDate(bill.date)}&lt;/td>
+          &lt;td>
+              &lt;button onclick="window.location.href='update-bill.html?id=${bill.billId}'">Update&lt;/button>
+              &lt;button onclick="refundBill(${bill.billId})">Refund&lt;/button>
+          &lt;/td>
+      `;
+      billsTableBody.appendChild(row);
+  });
+}
+
+// Load bills when the page loads
+document.addEventListener('DOMContentLoaded', fetchBills);
+
+/**
+* Handles the submission of the create bill form.
+*
+* @event submit#createBillForm
+* @param {Event} e - The form submission event.
+*/
+document.getElementById('createBillForm')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const roomCharge = document.getElementById('roomCharge').value;
+  const servicesCharge = document.getElementById('servicesCharge').value;
+  const taxRate = document.getElementById('taxRate').value;
+  const date = document.getElementById('date').value;
+
+  const responseMessage = document.getElementById('responseMessage');
+
+  const data = { roomCharge, servicesCharge, taxRate, date };
+
+  try {
+      const res = await fetch('http://localhost:3000/api/bills/create', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      responseMessage.style.color = res.ok ? 'green' : 'red';
+      responseMessage.textContent = res.ok
+          ? `Bill created successfully. Total: $${result.total}`
+          : result.message || 'Error creating bill';
+  } catch (error) {
+      responseMessage.style.color = 'red';
+      responseMessage.textContent = 'An error occurred. Please try again.';
+  }
+});
+
+/**
+* Handles the submission of the update bill form.
+*
+* @event submit#updateBillForm
+* @param {Event} e - The form submission event.
+*/
+document.getElementById('updateBillForm')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const billId = document.getElementById('billId').value;
+  const roomCharge = document.getElementById('roomCharge').value;
+  const servicesCharge = document.getElementById('servicesCharge').value;
+  const taxRate = document.getElementById('taxRate').value;
+
+  const responseMessage = document.getElementById('responseMessage');
+
+  const data = { billId, roomCharge, servicesCharge, taxRate };
+
+  try {
+      const res = await fetch('http://localhost:3000/api/bills/update', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      responseMessage.style.color = res.ok ? 'green' : 'red';
+      responseMessage.textContent = res.ok
+          ? `Bill updated successfully. Total: $${result.total}`
+          : result.message || 'Error updating bill';
+  } catch (error) {
+      responseMessage.style.color = 'red';
+      responseMessage.textContent = 'An error occurred. Please try again.';
+  }
+});
+
+/**
+* Handles the submission of the refund bill form.
+*
+* @event submit#refundBillForm
+* @param {Event} e - The form submission event.
+*/
+document.getElementById('refundBillForm')?.addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const billId = document.getElementById('billId').value;
+  const refundAmount = document.getElementById('refundAmount').value;
+
+  const responseMessage = document.getElementById('responseMessage');
+
+  const data = { billId, refundAmount };
+
+  try {
+      const res = await fetch('http://localhost:3000/api/bills/refund', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+      });
+
+      const result = await res.json();
+      responseMessage.style.color = res.ok ? 'green' : 'red';
+      responseMessage.textContent = res.ok
+          ? `Refund of $${refundAmount} processed successfully. New total: $${result.newTotal}`
+          : result.message || 'Error processing refund';
+  } catch (error) {
+      responseMessage.style.color = 'red';
+      responseMessage.textContent = 'An error occurred. Please try again.';
+  }
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

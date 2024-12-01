@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Frontend/misbah/Reservation/Reservation.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Frontend/misbah/Reservation/Reservation.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file reservation.controller.js
+ * @description Controller for managing reservations in the frontend.
+ */
+
+// DOM Elements
+const reservationTable = document
+  .getElementById("reservationTable")
+  .querySelector("tbody");
+const createReservationBtn = document.getElementById("createReservationBtn");
+const modal = document.getElementById("modal");
+const closeModal = document.getElementById("closeModal");
+const reservationForm = document.getElementById("reservationForm");
+
+/**
+ * Formats a date string into "day Month, year" format.
+ *
+ * @function formatDate
+ * @param {string} dateStr - The date string to format (ISO format expected).
+ * @returns {string} - Formatted date string (e.g., "14 November, 2024").
+ *
+ * @example
+ * formatDate("2024-11-14"); // "14 November, 2024"
+ */
+function formatDate(dateStr) {
+  const date = new Date(dateStr);
+  const day = date.getDate();
+  const month = date.toLocaleString("default", { month: "long" });
+  const year = date.getFullYear();
+  return `${day} ${month}, ${year}`;
+}
+
+/**
+ * Fetches reservations from the backend API and populates the reservation table.
+ *
+ * @function fetchReservations
+ * @returns {void}
+ *
+ * @example
+ * // Sample usage:
+ * fetchReservations();
+ */
+function fetchReservations() {
+  fetch("http://localhost:3000/api/reservations") // Replace with your backend URL
+    .then((response) => response.json())
+    .then((data) => {
+      reservationTable.innerHTML = ""; // Clear the table
+      data.forEach((reservation) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          &lt;td>${reservation.reservation_id}&lt;/td>
+          &lt;td>${reservation.guest_id}&lt;/td>
+          &lt;td>${reservation.room_id}&lt;/td>
+          &lt;td>${formatDate(reservation.checkIn_date)}&lt;/td>
+          &lt;td>${formatDate(reservation.checkOut_date)}&lt;/td>
+          &lt;td>${reservation.bill_id}&lt;/td>
+        `;
+        reservationTable.appendChild(row);
+      });
+    })
+    .catch((err) => console.error("Error fetching reservations:", err));
+}
+
+/**
+ * Opens the modal for creating a new reservation.
+ *
+ * @event createReservationBtn:click
+ */
+createReservationBtn.addEventListener("click", () => {
+  modal.classList.remove("hidden");
+});
+
+/**
+ * Closes the modal for creating a reservation.
+ *
+ * @event closeModal:click
+ */
+closeModal.addEventListener("click", () => {
+  modal.classList.add("hidden");
+});
+
+/**
+ * Submits the reservation form, sending data to the backend API.
+ *
+ * @event reservationForm:submit
+ * @param {Event} e - The submit event object.
+ *
+ * @returns {void}
+ *
+ * @example
+ * // Sample request body sent to the backend:
+ * // {
+ * //   "guest_id": "123",
+ * //   "room_id": 45,
+ * //   "checkIn_date": "2024-11-14",
+ * //   "checkOut_date": "2024-11-20",
+ * //   "bill_id": 789
+ * // }
+ */
+reservationForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const newReservation = {
+    guest_id: document.getElementById("guestId").value,
+    room_id: parseInt(document.getElementById("roomId").value),
+    checkIn_date: document.getElementById("checkInDate").value,
+    checkOut_date: document.getElementById("checkOutDate").value,
+    bill_id: parseInt(document.getElementById("billId").value),
+  };
+
+  fetch("http://localhost:3000/api/reservations", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(newReservation),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.message === "Reservation created successfully") {
+        alert("Reservation created!");
+        modal.classList.add("hidden");
+        fetchReservations(); // Refresh the table
+      } else {
+        alert("Error: " + (data.error || data.message));
+      }
+    })
+    .catch((err) => console.error("Error creating reservation:", err));
+});
+
+// Fetch reservations when the page loads
+fetchReservations();
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

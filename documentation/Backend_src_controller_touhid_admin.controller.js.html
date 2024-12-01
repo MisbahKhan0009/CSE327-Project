@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/controller/touhid/admin.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/controller/touhid/admin.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file admin.controller.js
+ * @description Controller for handling admin-related operations.
+ */
+
+const db = require('../../config/db');
+
+/**
+ * Get admin information by email.
+ * 
+ * This function retrieves admin details (email, name, and phone) from the database based on the provided email.
+ * 
+ * @function getAdminInfo
+ * @param {Object} req - Express request object.
+ * @param {Object} req.query - Query parameters in the request.
+ * @param {string} [req.query.email] - The email of the admin to search for.
+ * @param {Object} res - Express response object.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Request example
+ * // GET /api/admin/info?email=kuddus@ali.com
+ * 
+ * // Response example (200 OK)
+ * // {
+ * //   "email": "kuddus@ali.com",
+ * //   "name": "Kuddus Ali",
+ * //   "phone": "1234567890"
+ * // }
+ * 
+ * // Response example (404 Not Found)
+ * // {
+ * //   "message": "Admin not found"
+ * // }
+ */
+exports.getAdminInfo = (req, res) => {
+  const adminEmail = req.query.email;
+
+  const query = 'SELECT email, name, phone FROM admin WHERE email = ?';
+  db.query(query, [adminEmail], (err, results) => {
+    if (err) {
+      console.error("Database error:", err);
+      return res.status(500).json({ message: 'Database error', error: err });
+    }
+    if (results.length === 0) {
+      console.log("No admin found with this email.");
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+    
+    console.log("Admin data retrieved:", results[0]);
+    res.status(200).json(results[0]);
+  });
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
