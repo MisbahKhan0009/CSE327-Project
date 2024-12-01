@@ -1,0 +1,92 @@
+/* General Body Styling */
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+  background-image: url("BG-RC.jpg");
+  backdrop-filter: brightness(0.35) blur(10px);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+/* Container Styling */
+.container {
+  text-align: center;
+  height: screen;
+  padding: 20px;
+  color: white;
+  width: 90%;
+}
+
+/* Pricing Cards Container */
+.pricing-cards {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Pricing Card Styling */
+.pricing-card {
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 250px;
+  transition: transform 0.3s ease-in-out;
+  backdrop-filter: blur(10px); /* Glassmorphism effect */
+  cursor: pointer;
+}
+
+.pricing-card:hover {
+  transform: translateY(-10px); /* Lift effect on hover */
+}
+
+/* Pricing Styling */
+.pricing-card .price {
+  font-size: 24px;
+  font-weight: bold;
+  color: #cecedf;
+}
+
+/* Features Styling */
+.features p {
+  margin: 10px 0;
+  color: #f0f0f0;
+}
+
+.features i {
+  margin-right: 8px;
+  color: #00f0ff; /* Blue color for icons */
+}
+
+/* Button Styling */
+.btn {
+  background-color: #00f0ff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #0099cc;
+}
+
+/* Additional Description Styling */
+.details {
+  color: #f0f0f0;
+  margin-bottom: 20px;
+  font-size: 14px;
+}

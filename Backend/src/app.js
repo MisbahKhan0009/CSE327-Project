@@ -9,10 +9,17 @@ const guestRoutes = require("./routes/touhid/guest.routes");
 const feedbackRoutes = require('./routes/touhid/feedback.routes'); 
 const reservationRoutes = require("./routes/touhid/getreservation.routes");
 const paymentHistoryRoutes = require("./routes/touhid/history.routes");
-
+const roomsRoutes = require("./routes/misbah/rooms.routes");
+const reservationRoutes = require("./routes/misbah/reservation.routes");
 
 const app = express();
+
+// Use CORS to allow requests from any origin
+app.use(cors());
 const PORT = 3000;
+
+// Middleware to parse JSON
+app.use(express.json());
 
 // Middleware
 app.use(cors());
@@ -41,8 +48,13 @@ app.use("/api/bills", billingRoutes);  // Use billing routes
 
 
 
-// Start the server
+
+// Set up routes
+app.use("/api/roomList", roomsRoutes); // misbah
+app.use("/api/reservationList", reservationRoutes); // misbah
+
+
 app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
  
