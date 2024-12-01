@@ -1,7 +1,7 @@
 const request = require("supertest");
 const express = require("express");
-const reservationController = require("../controller/misbah/reservation.controller");
-const db = require("../config/db");
+const reservationController = require("../../controller/misbah/reservation.controller");
+const db = require("../../config/db");
 const app = express();
 
 app.use(express.json()); // For parsing JSON request bodies
@@ -9,7 +9,7 @@ app.post("/api/reservations", reservationController.createReservation);
 app.get("/api/reservations", reservationController.getAllReservations);
 
 // Mock the db module
-jest.mock("../config/db");
+jest.mock("../../config/db");
 
 describe("Reservation Controller", () => {
   beforeEach(() => {
