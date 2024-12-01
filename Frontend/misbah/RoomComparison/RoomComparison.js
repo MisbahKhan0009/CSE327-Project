@@ -1,3 +1,17 @@
+/**
+ * @file room.controller.js
+ * @description Controller for fetching and displaying room information in the frontend.
+ */
+
+/**
+ * Fetches room data from the backend API, groups rooms by category, and dynamically generates and displays room cards on the page.
+ *
+ * Each card includes room details like price, description, category, amenities, and a "Book Now" button.
+ *
+ * @async
+ * @function fetchAndDisplayRooms
+ * @returns {Promise<void>}
+ */
 async function fetchAndDisplayRooms() {
   const apiURL = "http://localhost:3000/api/rooms";
   try {

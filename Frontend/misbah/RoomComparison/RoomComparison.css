@@ -13,6 +13,7 @@ body {
   align-items: center;
   background-attachment: fixed;
   background-repeat: no-repeat;
+  min-height: 100vh;
 }
 
 /* Container Styling */
@@ -21,7 +22,7 @@ body {
   height: screen;
   padding: 20px;
   color: white;
-  width: 80%;
+  width: 90%;
 }
 
 /* Pricing Cards Container */
