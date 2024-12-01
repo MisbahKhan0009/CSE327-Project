@@ -1,9 +1,12 @@
 // routes/reservations.routes.js
 const express = require('express');
 const router = express.Router();
+const reservationController = require('../../controller/misbah/reservation.controller');
 
-// Define routes
-router.post("/", createReservation); // Route to create a new reservation
-router.get("/", getAllReservations); // Route to get all reservations
+// Route to create a new reservation
+router.post('/', reservationController.createReservation);
 
-export default router; // Export the router as default
+// Route to get all reservations (optional for testing)
+router.get('/', reservationController.getAllReservations);
+
+module.exports = router;
