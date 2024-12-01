@@ -17,8 +17,6 @@ const app = express();
 app.use(cors());
 const PORT = 3000;
 
-// Middleware to parse JSON
-app.use(express.json());
 
 // Middleware
 app.use(cors());
