@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/controller/touhid/getreservation.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/controller/touhid/getreservation.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file getreservation.controller.js
+ * @description Controller for handling operations related to reservations, such as fetching current reservation details for a guest.
+ */
+
+const db = require('../../config/db'); // Database connection file
+
+/**
+ * Fetch current reservation details for a guest.
+ * 
+ * @function getCurrentReservation
+ * @param {Object} req - Express request object.
+ * @param {Object} req.query - Query parameters from the request.
+ * @param {string} req.query.guestId - The ID of the guest whose reservation details are being fetched.
+ * @param {Object} res - Express response object.
+ * @returns {Array&lt;Object>} 200 - List of current reservation details, including room category, check-in date, check-out date, and booking status.
+ * @returns {Object} 400 - Error message if the guest ID is not provided.
+ * @returns {Object} 404 - Error message if no current reservations are found for the guest.
+ * @returns {Object} 500 - Error message if there is a database error.
+ * 
+ * @example
+ * // Request example
+ * // GET /api/getreservations/current-reservation?guestId="tohid@ferdoush.com"
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   {
+ * //     "roomCategory": "Double",
+ * //     "checkInDate": "2024-11-20",
+ * //     "checkOutDate": "2024-11-25",
+ * //     "bookingStatus": "Active"
+ * //   }
+ * // ]
+ * 
+ * // Error response example (400 Bad Request)
+ * // { "message": "Guest email (guestId) is required." }
+ * 
+ * // Error response example (404 Not Found)
+ * // { "message": "No current reservation found for this guest." }
+ * 
+ * // Error response example (500 Internal Server Error)
+ * // { "message": "An error occurred while fetching reservation details." }
+ */
+const getCurrentReservation = (req, res) => {
+    const { guestId } = req.query;
+
+    if (!guestId) {
+        return res.status(400).json({ message: "Guest email (guestId) is required." });
+    }
+
+    const today = new Date().toISOString().split("T")[0]; // Get the current date in YYYY-MM-DD format
+
+    const query = `
+        SELECT 
+            r.category AS roomCategory,
+            res.checkIn_date AS checkInDate,
+            res.checkOut_date AS checkOutDate,
+            CASE
+                WHEN res.checkOut_date > ? THEN 'Active'
+                ELSE 'Completed'
+            END AS bookingStatus
+        FROM reservation AS res
+        JOIN room AS r ON res.room_id = r.room_id
+        WHERE res.guest_id = ?
+        AND res.checkOut_date > ?
+    `;
+
+    db.query(query, [today, guestId, today], (err, results) => {
+        if (err) {
+            console.error("Error fetching reservation details:", err);
+            return res.status(500).json({ message: "An error occurred while fetching reservation details." });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ message: "No current reservation found for this guest." });
+        }
+
+        return res.status(200).json(results);
+    });
+};
+
+module.exports = { getCurrentReservation };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

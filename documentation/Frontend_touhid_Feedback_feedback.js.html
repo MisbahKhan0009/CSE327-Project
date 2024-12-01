@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Frontend/touhid/Feedback/feedback.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Frontend/touhid/Feedback/feedback.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file feedbackHandler.js
+ * @description Handles the feedback submission functionality, including preloading the guest email, 
+ * managing star rating selection, and submitting feedback to the backend.
+ */
+
+/**
+ * Preloads the guest email from localStorage into the feedback form.
+ * If no email is stored, a default email is used.
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    let guestEmail = localStorage.getItem("guestEmail");
+    if (!guestEmail) {
+        guestEmail = "tohid@ferdoush.com"; // Default email
+    }
+    document.getElementById("guestId").value = guestEmail;
+});
+
+/**
+ * Handles the selection of star ratings.
+ * Updates the rating value and visually highlights the selected stars.
+ */
+document.querySelectorAll(".star").forEach((star) => {
+    star.addEventListener("click", function () {
+        const value = this.getAttribute("data-value");
+        document.getElementById("rating").value = value;
+
+        document.querySelectorAll(".star").forEach((s) => {
+            s.classList.remove("selected");
+        });
+        this.classList.add("selected");
+        for (let prev = this.previousElementSibling; prev; prev = prev.previousElementSibling) {
+            prev.classList.add("selected");
+        }
+    });
+});
+
+/**
+ * Handles the feedback form submission.
+ * Validates form inputs, sends the feedback data to the backend, and displays appropriate messages.
+ * @param {Event} event - The form submission event.
+ */
+document.getElementById("feedbackForm").addEventListener("submit", async function (event) {
+    event.preventDefault(); 
+
+    const guestId = document.getElementById("guestId").value.trim();
+    const description = document.getElementById("description").value.trim();
+    const rating = document.getElementById("rating").value;
+
+    if (!guestId || !description || !rating) {
+        const responseMessage = document.getElementById("responseMessage");
+        responseMessage.style.color = "red";
+        responseMessage.textContent = "Please fill out all fields before submitting.";
+        return;
+    }
+
+    const feedbackData = {
+        guest_id: guestId,
+        description,
+        date: new Date().toISOString().split("T")[0], // Current date in YYYY-MM-DD format
+        rating,
+    };
+
+    try {
+        const response = await fetch("http://localhost:3000/api/feedback", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(feedbackData),
+        });
+
+        const result = await response.json();
+        const responseMessage = document.getElementById("responseMessage");
+
+        if (response.ok) {
+            responseMessage.style.color = "green";
+            responseMessage.textContent = result.message;
+        } else {
+            responseMessage.style.color = "red";
+            responseMessage.textContent = result.error || "Failed to submit feedback.";
+        }
+    } catch (error) {
+        console.error("Error submitting feedback:", error);
+        const responseMessage = document.getElementById("responseMessage");
+        responseMessage.style.color = "red";
+        responseMessage.textContent = "An error occurred. Please try again.";
+    }
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

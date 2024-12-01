@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Frontend/sumaya/availiability.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Frontend/sumaya/availiability.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file rooms.js
+ * @description Frontend script for fetching and displaying available rooms from the API.
+ */
+
+document.addEventListener("DOMContentLoaded", function () {
+    const roomsTableBody = document.getElementById('roomsBody'); // Table body to display room data
+
+    /**
+     * Fetch available rooms.
+     * 
+     * This function fetches the list of available rooms from the backend API and displays them in the table.
+     * If no rooms are available or an error occurs, appropriate messages are shown.
+     * 
+     * @async
+     * @function fetchAvailableRooms
+     * 
+     * @returns {Promise&lt;void>}
+     * 
+     * @example
+     * // API response example
+     * // [
+     * //   {
+     * //     "room_id": 1,
+     * //     "price": 100,
+     * //     "category": "Deluxe",
+     * //     "description": "Spacious room with a king-sized bed",
+     * //     "isBooked": 0
+     * //   }
+     * // ]
+     * 
+     * @example
+     * // Table display example
+     * // | Room ID | Price  | Category | Description               | Action     |
+     * // |---------|--------|----------|---------------------------|------------|
+     * // | 1       | $100   | Deluxe   | Spacious room with a ...  | Book Now   |
+     * 
+     * // Error message example
+     * // &lt;tr>&lt;td colspan="5" style="text-align:center;">Error fetching data&lt;/td>&lt;/tr>
+     */
+    async function fetchAvailableRooms() {
+        try {
+            const response = await fetch('http://localhost:3000/api/rooms/available'); // Update the URL based on your backend
+            const rooms = await response.json();
+            
+            if (rooms.length === 0) {
+                roomsTableBody.innerHTML = '&lt;tr>&lt;td colspan="5" style="text-align:center;">No available rooms&lt;/td>&lt;/tr>';
+            } else {
+                roomsTableBody.innerHTML = ''; // Clear previous rows
+
+                rooms.forEach(room => {
+                    const row = document.createElement('tr');
+
+                    row.innerHTML = `
+                        &lt;td>${room.room_id}&lt;/td>
+                        &lt;td>$${room.price}&lt;/td>
+                        &lt;td>${room.category}&lt;/td>
+                        &lt;td>${room.description}&lt;/td>
+                        &lt;td>
+                            &lt;button ${room.isBooked ? 'disabled' : ''}>Book Now&lt;/button>
+                        &lt;/td>
+                    `;
+
+                    roomsTableBody.appendChild(row);
+                });
+            }
+        } catch (error) {
+            console.error('Error fetching rooms:', error);
+            roomsTableBody.innerHTML = '&lt;tr>&lt;td colspan="5" style="text-align:center;">Error fetching data&lt;/td>&lt;/tr>';
+        }
+    }
+
+    // Call the function to fetch rooms when the page is loaded
+    fetchAvailableRooms();
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

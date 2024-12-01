@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const adminRoutes = require("./routes/touhid/admin.routes");
 const amenityRoutes = require("./routes/touhid/amenity.routes");
 const guestRoutes = require("./routes/touhid/guest.routes");
-const feedbackRoutes = require('./routes/touhid/feedback.routes'); 
+const feedbackRoutes = require("./routes/touhid/feedback.routes");
 const reservationRoutes = require("./routes/touhid/getreservation.routes");
 const paymentHistoryRoutes = require("./routes/touhid/history.routes");
 const roomsRoutes = require("./routes/misbah/rooms.routes");
@@ -21,12 +21,10 @@ const app = express();
 app.use(cors());
 const PORT = 3000;
 
-// Middleware to parse JSON
-app.use(express.json());
 
 // Middleware
 app.use(cors());
-app.use(express.json());  // For parsing application/json
+app.use(express.json()); // For parsing application/json
 app.use(bodyParser.json());
 
 // Room availability routes
@@ -35,29 +33,23 @@ app.use('/api/reservations', reservationRoutesSumaiya);
 
 
 // Routes Touhid(Begains)
-app.use("/api/admin", adminRoutes); 
+app.use("/api/admin", adminRoutes);
 app.use("/api/amenities", amenityRoutes);
-app.use("/api/guest", guestRoutes); 
-app.use('/api/feedback', feedbackRoutes);
+app.use("/api/guest", guestRoutes);
+app.use("/api/feedback", feedbackRoutes);
 app.use("/api/getreservations", reservationRoutes);
 app.use("/api/payments", paymentHistoryRoutes);
 // Routes Touhid(Ends)
 
-
 //routes
 app.use("/api/register", registrationRoutes);
 app.use("/api/login", loginRoutes);
-app.use("/api/bills", billingRoutes);  // Use billing routes
-
-
-
+app.use("/api/bills", billingRoutes); // Use billing routes
 
 // Set up routes
 app.use("/api/roomList", roomsRoutes); // misbah
 app.use("/api/reservationList", reservationRoutesMisba); // misbah
 
-
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
- 

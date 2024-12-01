@@ -1,0 +1,12 @@
+{
+  "source": {
+    "include": ["Backend/src", "Frontend"],
+    "includePattern": ".+\\.js(doc|x)?$",
+    "excludePattern": "(node_modules|test)"
+  },
+  "opts": {
+    "template": "node_modules/jsdoc/templates/default",
+    "destination": "./documentation",
+    "recurse": true
+  }
+}

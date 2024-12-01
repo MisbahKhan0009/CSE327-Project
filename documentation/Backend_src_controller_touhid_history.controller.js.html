@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/controller/touhid/history.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/controller/touhid/history.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file history.controller.js
+ * @description Controller for handling payment-history related operations, such as fetching payment history for a guest.
+ */
+
+const db = require('../../config/db'); // Database connection file
+
+/**
+ * Fetch the payment history for a guest by email.
+ * 
+ * @function getPaymentHistory
+ * @param {Object} req - Express request object.
+ * @param {Object} req.query - Query parameters from the request.
+ * @param {string} req.query.guestEmail - The email of the guest whose payment history is being fetched.
+ * @param {Object} res - Express response object.
+ * @returns {Array&lt;Object>} 200 - List of payment history records, including bill ID, total amount, and payment date.
+ * @returns {Object} 400 - Error message if the guest email is not provided.
+ * @returns {Object} 404 - Error message if the guest or payment history is not found.
+ * @returns {Object} 500 - Error message if a database error occurs.
+ * 
+ * @example
+ * // Request example
+ * // GET /api/payments/payment-history?guestEmail=tohid@ferdoush.com
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   {
+ * //     "bill_id": 3,
+ * //     "total": 1500,
+ * //     "payment_date": "2024-11-20"
+ * //   },
+ * //   {
+ * //     "bill_id": 4,
+ * //     "total": 2000,
+ * //     "payment_date": "2024-10-15"
+ * //   }
+ * // ]
+ * 
+ * // Error response example (400 Bad Request)
+ * // { "message": "Guest email is required." }
+ * 
+ * // Error response example (404 Not Found - Guest)
+ * // { "message": "Guest not found." }
+ * 
+ * // Error response example (404 Not Found - Payment History)
+ * // { "message": "No payment history found for this guest." }
+ * 
+ * // Error response example (500 Internal Server Error)
+ * // { "message": "An error occurred while fetching payment history." }
+ */
+const getPaymentHistory = (req, res) => {
+    const { guestEmail } = req.query;
+
+    // Validate if guest email is provided
+    if (!guestEmail) {
+        return res.status(400).json({ message: "Guest email is required." });
+    }
+
+    // First, verify the guest exists
+    const checkGuestQuery = 'SELECT * FROM guest WHERE email = ?';
+    
+    db.query(checkGuestQuery, [guestEmail], (guestErr, guestResults) => {
+        if (guestErr) {
+            console.error("Error checking guest:", guestErr);
+            return res.status(500).json({ message: "An error occurred while checking guest information." });
+        }
+
+        // If no guest found
+        if (guestResults.length === 0) {
+            return res.status(404).json({ message: "Guest not found." });
+        }
+
+        // Query to fetch payment history
+        const paymentQuery = `
+            SELECT 
+                b.bill_id, 
+                b.total, 
+                b.date AS payment_date
+            FROM guest g
+            JOIN bill b ON g.bill_id = b.bill_id
+            WHERE g.email = ?
+            ORDER BY b.date DESC
+        `;
+
+        // Execute the query
+        db.query(paymentQuery, [guestEmail], (err, results) => {
+            if (err) {
+                console.error("Error fetching payment history:", err);
+                return res.status(500).json({ message: "An error occurred while fetching payment history." });
+            }
+
+            // If no payment history found
+            if (results.length === 0) {
+                return res.status(404).json({ message: "No payment history found for this guest." });
+            }
+
+            return res.status(200).json(results);
+        });
+    });
+};
+
+module.exports = { getPaymentHistory };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
