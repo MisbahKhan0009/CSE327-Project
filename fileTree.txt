@@ -1,0 +1,102 @@
+.
+├── Backend
+│   ├── package-lock.json
+│   ├── package.json
+│   └── src
+│       ├── app.js
+│       ├── config
+│       │   └── db.js
+│       ├── controller
+│       │   ├── controller.js
+│       │   ├── jarif
+│       │   │   ├── billing.controller.js
+│       │   │   ├── login.controller.js
+│       │   │   └── registration.controller.js
+│       │   ├── misbah
+│       │   │   ├── reservation.controller.js
+│       │   │   └── rooms.controller.js
+│       │   ├── sumaya
+│       │   │   ├── availiability.controller.js
+│       │   │   └── reservation.controller.js
+│       │   └── touhid
+│       │       ├── admin.controller.js
+│       │       ├── amenity.controller.js
+│       │       ├── feedback.controller.js
+│       │       ├── getreservation.controller.js
+│       │       ├── guest.controller.js
+│       │       └── history.controller.js
+│       └── routes
+│           ├── jarif
+│           │   ├── billing.routes.js
+│           │   ├── login.routes.js
+│           │   └── registration.routes.js
+│           ├── misbah
+│           │   ├── reservation.routes.js
+│           │   └── rooms.routes.js
+│           ├── routes.js
+│           ├── sumaya
+│           │   ├── availiability.routes.js
+│           │   └── reservation.routes.js
+│           └── touhid
+│               ├── admin.routes.js
+│               ├── amenity.routes.js
+│               ├── feedback.routes.js
+│               ├── getreservation.routes.js
+│               ├── guest.routes.js
+│               └── history.routes.js
+├── Frontend
+│   ├── index.html
+│   ├── jarif
+│   │   ├── billing
+│   │   │   ├── billing.css
+│   │   │   ├── billing.html
+│   │   │   ├── billing.js
+│   │   │   ├── create-bill.html
+│   │   │   ├── refund-bill.html
+│   │   │   └── update-bill.html
+│   │   ├── login
+│   │   │   ├── login.css
+│   │   │   ├── login.html
+│   │   │   └── login.js
+│   │   └── registration
+│   │       ├── registration.css
+│   │       ├── registration.html
+│   │       └── registration.js
+│   ├── misbah
+│   │   ├── Reservation
+│   │   │   ├── Reservation.css
+│   │   │   ├── Reservation.html
+│   │   │   └── Reservation.js
+│   │   └── RoomComparison
+│   │       ├── Assets-misbah
+│   │       │   ├── BG-RC.jpg
+│   │       │   ├── double.jpg
+│   │       │   ├── single.jpg
+│   │       │   └── suite.jpg
+│   │       ├── RoomComparison.css
+│   │       ├── RoomComparison.html
+│   │       └── RoomComparison.js
+│   ├── sumaya
+│   │   ├── BGImage.jpg
+│   │   ├── availiability.css
+│   │   ├── availiability.html
+│   │   ├── availiability.js
+│   │   ├── reservation.css
+│   │   ├── reservation.html
+│   │   └── reservation.js
+│   └── touhid
+│       ├── AdminDashboard
+│       │   ├── adminDashboard.css
+│       │   ├── adminDashboard.html
+│       │   └── adminDashboard.js
+│       ├── Feedback
+│       │   ├── feedback.css
+│       │   ├── feedback.html
+│       │   └── feedback.js
+│       └── GuestDashboard
+│           ├── guestDashboard.css
+│           ├── guestDashboard.html
+│           └── guestDashboard.js
+└── fileTree.txt
+
+28 directories, 72 files
