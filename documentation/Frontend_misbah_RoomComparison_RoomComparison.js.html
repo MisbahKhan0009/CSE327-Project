@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Frontend/misbah/RoomComparison/RoomComparison.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Frontend/misbah/RoomComparison/RoomComparison.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file room.controller.js
+ * @description Controller for fetching and displaying room information in the frontend.
+ */
+
+/**
+ * Fetches room data from the backend API, groups rooms by category, and dynamically generates and displays room cards on the page.
+ *
+ * Each card includes room details like price, description, category, amenities, and a "Book Now" button.
+ *
+ * @async
+ * @function fetchAndDisplayRooms
+ * @returns {Promise&lt;void>}
+ */
+async function fetchAndDisplayRooms() {
+  const apiURL = "http://localhost:3000/api/rooms";
+  try {
+    const response = await fetch(apiURL);
+    const rooms = await response.json();
+
+    // Get the container element to append cards
+    const container = document.getElementById("pricing-cards-container");
+
+    // Filter rooms by category (Single, Double, Suite)
+    const filteredRooms = {
+      single: rooms.find(room => room.category === "single"),
+      double: rooms.find(room => room.category === "double"),
+      suite: rooms.find(room => room.category === "suite")
+    };
+
+    // Create and append cards for each category (if data is available)
+    Object.values(filteredRooms).forEach(room => {
+      if (room) {
+        const card = createRoomCard(room);
+        container.appendChild(card);
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching room data:", error);
+  }
+}
+
+// Function to create a room card dynamically
+function createRoomCard(room) {
+  // Create card elements
+  const card = document.createElement('div');
+  card.classList.add('pricing-card');
+  
+  const title = document.createElement('h2');
+  title.textContent = room.category.charAt(0).toUpperCase() + room.category.slice(1);
+  
+  const price = document.createElement('p');
+  price.classList.add('price');
+  price.textContent = `$${room.price}/month`;
+
+  const features = document.createElement('div');
+  features.classList.add('features');
+  
+  const bedFeature = document.createElement('p');
+  bedFeature.innerHTML = `&lt;i class="fas fa-bed">&lt;/i> ${room.beds} Bed${room.beds > 1 ? 's' : ''}`;
+  features.appendChild(bedFeature);
+  
+  const userFeature = document.createElement('p');
+  userFeature.innerHTML = `&lt;i class="fas fa-users">&lt;/i> ${room.maxUsers} User${room.maxUsers > 1 ? 's' : ''}`;
+  features.appendChild(userFeature);
+
+  const wifiFeature = document.createElement('p');
+  wifiFeature.innerHTML = `&lt;i class="fas fa-wifi">&lt;/i> ${room.wifi ? 'Free WiFi' : 'No WiFi'}`;
+  features.appendChild(wifiFeature);
+
+  const description = document.createElement('p');
+  description.classList.add('details');
+  description.textContent = room.description;
+
+  const button = document.createElement('button');
+  button.classList.add('btn');
+  button.textContent = 'Book Now';
+
+  // Append all elements to the card
+  card.appendChild(title);
+  card.appendChild(price);
+  card.appendChild(features);
+  card.appendChild(description);
+  card.appendChild(button);
+  
+  return card;
+}
+
+// Fetch and display room data on page load
+document.addEventListener("DOMContentLoaded", fetchAndDisplayRooms);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

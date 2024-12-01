@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/controller/misbah/reservation.controller.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/controller/misbah/reservation.controller.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file reservations.controller.js
+ * @description Controller for managing reservations in the hotel booking system.
+ */
+
+const db = require("../../config/db"); // Import database connection
+
+/**
+ * Create a new reservation.
+ * 
+ * This function creates a new reservation in the `reservation` table, using the guest's information,
+ * room selection, and check-in/check-out dates. It also updates the room's availability status.
+ * 
+ * @function createReservation
+ * @param {Object} req - Express request object.
+ * @param {Object} req.body - Request body containing reservation details.
+ * @param {number} req.body.guest_id - The ID of the guest making the reservation.
+ * @param {number} req.body.room_id - The ID of the room being reserved.
+ * @param {string} req.body.checkIn_date - The check-in date (e.g., 'YYYY-MM-DD').
+ * @param {string} req.body.checkOut_date - The check-out date (e.g., 'YYYY-MM-DD').
+ * @param {number} req.body.bill_id - The ID of the bill associated with the reservation.
+ * @param {Object} res - Express response object.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Request example
+ * // POST /api/reservations
+ * // {
+ * //   "guest_id": 1,
+ * //   "room_id": 101,
+ * //   "checkIn_date": "2024-12-01",
+ * //   "checkOut_date": "2024-12-05",
+ * //   "bill_id": 123
+ * // }
+ * 
+ * // Response example (201 Created)
+ * // {
+ * //   "message": "Reservation created successfully",
+ * //   "reservation_id": 456
+ * // }
+ * 
+ * // Response example (500 Internal Server Error)
+ * // {
+ * //   "message": "Error creating reservation",
+ * //   "error": "Error details"
+ * // }
+ */
+exports.createReservation = async (req, res) => {
+  const { guest_id, room_id, checkIn_date, checkOut_date, bill_id } = req.body;
+
+  try {
+    // Insert reservation into the database
+    const query = `
+      INSERT INTO reservation (guest_id, room_id, checkIn_date, checkOut_date, bill_id)
+      VALUES (?, ?, ?, ?, ?)`;
+
+    const [result] = await db.query(query, [
+      guest_id,
+      room_id,
+      checkIn_date,
+      checkOut_date,
+      bill_id,
+    ]);
+
+    // Update room availability (set isBooked to TRUE)
+    await db.query("UPDATE room SET isBooked = TRUE WHERE room_id = ?", [
+      room_id,
+    ]);
+
+    res.status(201).json({
+      message: "Reservation created successfully",
+      reservation_id: result.insertId,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error creating reservation", error });
+  }
+};
+
+/**
+ * Get all reservations.
+ * 
+ * This function retrieves all reservations from the `reservation` table.
+ * It is typically used for admin purposes to view all reservations in the system.
+ * 
+ * @function getAllReservations
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Request example
+ * // GET /api/reservations
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   {
+ * //     "reservation_id": 1,
+ * //     "guest_id": 1,
+ * //     "room_id": 101,
+ * //     "checkIn_date": "2024-12-01",
+ * //     "checkOut_date": "2024-12-05",
+ * //     "bill_id": 123
+ * //   },
+ * //   {
+ * //     "reservation_id": 2,
+ * //     "guest_id": 2,
+ * //     "room_id": 102,
+ * //     "checkIn_date": "2024-12-10",
+ * //     "checkOut_date": "2024-12-15",
+ * //     "bill_id": 124
+ * //   }
+ * // ]
+ * 
+ * // Response example (500 Internal Server Error)
+ * // {
+ * //   "message": "Error fetching reservations",
+ * //   "error": "Error details"
+ * // }
+ */
+exports.getAllReservations = async (req, res) => {
+  try {
+    const query = "SELECT * FROM reservation";
+    const [result] = await db.query(query);
+
+    res.status(200).json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Error fetching reservations", error });
+  }
+};
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

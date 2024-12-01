@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/routes/jarif/billing.routes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/routes/jarif/billing.routes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file billing.routes.js
+ * @description Defines routes for billing-related operations, such as creating, updating, and refunding bills.
+ */
+
+const express = require('express');
+const router = express.Router();
+const billingController = require('../../controller/jarif/billing.controller');
+
+/**
+ * Route to create a new bill.
+ * 
+ * Accepts a POST request with billing details, calculates the total, and stores the new bill in the database.
+ * 
+ * @name POST /billing/create
+ * @function
+ * @memberof module:routes/billing
+ * 
+ * @example
+ * // Request example
+ * // POST /billing/create
+ * // { "roomCharge": 100, "servicesCharge": 50, "taxRate": 0.1, "date": "2024-11-25" }
+ * 
+ * // Response example (201 Created)
+ * // { "message": "Bill created successfully", "billId": 1, "total": 165, "date": "2024-11-25" }
+ */
+router.post('/create', billingController.createBill);
+
+/**
+ * Route to update an existing bill.
+ * 
+ * Accepts a PUT request to update bill details (e.g., at checkout). Recalculates the total and updates the bill in the database.
+ * 
+ * @name PUT /billing/update
+ * @function
+ * @memberof module:routes/billing
+ * 
+ * @example
+ * // Request example
+ * // PUT /billing/update
+ * // { "billId": 1, "roomCharge": 120, "servicesCharge": 60, "taxRate": 0.1 }
+ * 
+ * // Response example (200 OK)
+ * // { "message": "Bill updated successfully", "billId": 1, "total": 198 }
+ */
+router.put('/update', billingController.updateBill);
+
+/**
+ * Route to process a refund for a canceled reservation.
+ * 
+ * Accepts a POST request to deduct the refund amount from the total of an existing bill.
+ * 
+ * @name POST /billing/refund
+ * @function
+ * @memberof module:routes/billing
+ * 
+ * @example
+ * // Request example
+ * // POST /billing/refund
+ * // { "billId": 1, "refundAmount": 50 }
+ * 
+ * // Response example (200 OK)
+ * // { "message": "Refund of $50 processed successfully", "newTotal": 115 }
+ */
+router.post('/refund', billingController.processRefund);
+
+/**
+ * Route to get all bills.
+ * 
+ * Accepts a GET request to fetch all bills from the database.
+ * 
+ * @name GET /billing
+ * @function
+ * @memberof module:routes/billing
+ * 
+ * @example
+ * // Request example
+ * // GET /billing
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   { "billId": 1, "total": 165, "date": "2024-11-25" },
+ * //   { "billId": 2, "total": 200, "date": "2024-11-26" }
+ * // ]
+ * 
+ * // Response example (404 Not Found)
+ * // { "message": "No bills found" }
+ */
+router.get('/', billingController.getAllBills);
+
+module.exports = router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

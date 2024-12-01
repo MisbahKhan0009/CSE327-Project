@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/routes/sumaya/reservation.routes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/routes/sumaya/reservation.routes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file reservation.routes.js
+ * @description Routes for handling reservation-related operations.
+ */
+
+const express = require('express');
+const router = express.Router();
+const reservationController = require('../../controller/sumaya/reservation.controller');
+
+/**
+ * Get all reservations.
+ * 
+ * This route retrieves all reservations, including details like reservation ID, room ID, guest name, 
+ * check-in date, and check-out date.
+ * 
+ * @name GET /api/reservations
+ * @function
+ * @memberof module:routes/reservation
+ * @inner
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Request example
+ * // GET /api/reservations
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   {
+ * //     "reservation_id": 1,
+ * //     "room_id": 101,
+ * //     "guest_name": "John Doe",
+ * //     "checkIn_date": "2024-01-01",
+ * //     "checkOut_date": "2024-01-05"
+ * //   }
+ * // ]
+ * 
+ * // Response example (500 Internal Server Error)
+ * // {
+ * //   "error": "Internal Server Error"
+ * // }
+ */
+router.get('/', reservationController.getAllReservations);
+
+/**
+ * Create a new reservation.
+ * 
+ * This route allows the creation of a new reservation. It requires the room ID, guest name, 
+ * check-in date, and check-out date as input.
+ * 
+ * @name POST /api/reservations
+ * @function
+ * @memberof module:routes/reservation
+ * @inner
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} req.body - Request body containing reservation details.
+ * @param {number} req.body.room_id - ID of the room to be reserved.
+ * @param {string} req.body.guest_name - Name of the guest making the reservation.
+ * @param {string} req.body.checkIn_date - Check-in date in the format YYYY-MM-DD.
+ * @param {string} req.body.checkOut_date - Check-out date in the format YYYY-MM-DD.
+ * @param {Object} res - Express response object.
+ * 
+ * @returns {void}
+ * 
+ * @example
+ * // Request example
+ * // POST /api/reservations
+ * // {
+ * //   "room_id": 101,
+ * //   "guest_name": "John Doe",
+ * //   "checkIn_date": "2024-01-01",
+ * //   "checkOut_date": "2024-01-05"
+ * // }
+ * 
+ * // Response example (201 Created)
+ * // {
+ * //   "message": "Reservation created successfully",
+ * //   "reservation_id": 1
+ * // }
+ * 
+ * // Response example (400 Bad Request)
+ * // {
+ * //   "error": "All fields are required"
+ * // }
+ * 
+ * // Response example (500 Internal Server Error)
+ * // {
+ * //   "error": "Internal Server Error"
+ * // }
+ */
+router.post('/', reservationController.createReservation);
+
+module.exports = router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

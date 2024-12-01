@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Backend/src/routes/touhid/amenity.routes.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: Backend/src/routes/touhid/amenity.routes.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @file amenity.routes.js
+ * @description Routes for managing amenities, including fetching, adding, and updating amenity details.
+ */
+
+const express = require("express");
+const router = express.Router();
+const amenityController = require('../../controller/touhid/amenity.controller');
+
+/**
+ * Fetch all amenities.
+ * 
+ * @route GET /api/amenities
+ * @group Amenity - Operations related to amenities
+ * @returns {Array&lt;Object>} 200 - List of amenities.
+ * @returns {Object} 500 - Error message if fetching fails.
+ * 
+ * @example
+ * // Request example
+ * // GET /api/amenities
+ * 
+ * // Response example (200 OK)
+ * // [
+ * //   { "amenity_id": 1, "name": "Swimming Pool", "description": "Outdoor pool", "numbers": 1 },
+ * //   { "amenity_id": 2, "name": "Gym", "description": "Fully equipped gym", "numbers": 1 }
+ * // ]
+ */
+router.get('/', amenityController.getAmenities);
+
+/**
+ * Add a new amenity.
+ * 
+ * @route POST /api/amenities
+ * @group Amenity - Operations related to amenities
+ * @param {Object} req.body.required - Data for the new amenity.
+ * @param {string} req.body.name.required - Name of the amenity.
+ * @param {string} req.body.description.required - Description of the amenity.
+ * @param {number} req.body.numbers.required - Quantity of the amenity.
+ * @returns {Object} 201 - Success message with the ID of the newly added amenity.
+ * @returns {Object} 500 - Error message if adding fails.
+ * 
+ * @example
+ * // Request example
+ * // POST /api/amenities
+ * // Body: { "name": "Spa", "description": "Relaxing spa services", "numbers": 1 }
+ * 
+ * // Response example (201 Created)
+ * // { "message": "Amenity added successfully", "amenityId": 3 }
+ */
+router.post('/', amenityController.addAmenity);
+
+/**
+ * Update an existing amenity.
+ * 
+ * @route PUT /api/amenities/:amenity_id
+ * @group Amenity - Operations related to amenities
+ * @param {number} amenity_id.path.required - ID of the amenity to update.
+ * @param {Object} req.body.required - Updated data for the amenity.
+ * @param {string} req.body.name.required - Updated name of the amenity.
+ * @param {string} req.body.description.required - Updated description of the amenity.
+ * @param {number} req.body.numbers.required - Updated quantity of the amenity.
+ * @returns {Object} 200 - Success message if the amenity is updated.
+ * @returns {Object} 500 - Error message if updating fails.
+ * 
+ * @example
+ * // Request example
+ * // PUT /api/amenities/1
+ * // Body: { "name": "Updated Pool", "description": "New description", "numbers": 2 }
+ * 
+ * // Response example (200 OK)
+ * // { "message": "Amenity updated successfully" }
+ */
+router.put('/:amenity_id', amenityController.updateAmenity);
+
+module.exports = router;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Events</h3><ul><li><a href="global.html#event:closeModal:click">closeModal:click</a></li><li><a href="global.html#event:createReservationBtn:click">createReservationBtn:click</a></li><li><a href="global.html#event:DOMContentLoaded">DOMContentLoaded</a></li><li><a href="global.html#event:click">click</a></li><li><a href="global.html#event:submit">submit</a></li><li><a href="global.html#event:reservationForm:submit">reservationForm:submit</a></li><li><a href="submit.html#event:createBillForm">createBillForm</a></li><li><a href="submit.html#event:refundBillForm">refundBillForm</a></li><li><a href="submit.html#event:updateBillForm">updateBillForm</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addAmenity">addAmenity</a></li><li><a href="global.html#calculateTotal">calculateTotal</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#createBill">createBill</a></li><li><a href="global.html#createReservation">createReservation</a></li><li><a href="global.html#createTableRow">createTableRow</a></li><li><a href="global.html#currentAmenityId">currentAmenityId</a></li><li><a href="global.html#displayBills">displayBills</a></li><li><a href="global.html#editAmenity">editAmenity</a></li><li><a href="global.html#fetchAndDisplayAdminData">fetchAndDisplayAdminData</a></li><li><a href="global.html#fetchAndDisplayAmenities">fetchAndDisplayAmenities</a></li><li><a href="global.html#fetchAndDisplayGuestData">fetchAndDisplayGuestData</a></li><li><a href="global.html#fetchAndDisplayPaymentHistory">fetchAndDisplayPaymentHistory</a></li><li><a href="global.html#fetchAndDisplayReservation">fetchAndDisplayReservation</a></li><li><a href="global.html#fetchAndDisplayRooms">fetchAndDisplayRooms</a></li><li><a href="global.html#fetchAvailableRooms">fetchAvailableRooms</a></li><li><a href="global.html#fetchBills">fetchBills</a></li><li><a href="global.html#fetchReservations">fetchReservations</a></li><li><a href="global.html#formatDate">formatDate</a></li><li><a href="global.html#getAdminInfo">getAdminInfo</a></li><li><a href="global.html#getAllBills">getAllBills</a></li><li><a href="global.html#getAllReservations">getAllReservations</a></li><li><a href="global.html#getAllRooms">getAllRooms</a></li><li><a href="global.html#getAmenities">getAmenities</a></li><li><a href="global.html#getAvailableRooms">getAvailableRooms</a></li><li><a href="global.html#getCurrentReservation">getCurrentReservation</a></li><li><a href="global.html#getFeedback">getFeedback</a></li><li><a href="global.html#getGuestInfo">getGuestInfo</a></li><li><a href="global.html#getPaymentHistory">getPaymentHistory</a></li><li><a href="global.html#handleEditFormSubmit">handleEditFormSubmit</a></li><li><a href="global.html#loginUser">loginUser</a></li><li><a href="global.html#modal">modal</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#processRefund">processRefund</a></li><li><a href="global.html#registerUser">registerUser</a></li><li><a href="global.html#submitFeedback">submitFeedback</a></li><li><a href="global.html#updateAmenity">updateAmenity</a></li><li><a href="global.html#updateBill">updateBill</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.4</a> on Sun Dec 01 2024 12:31:51 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
