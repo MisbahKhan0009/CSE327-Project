@@ -55,8 +55,18 @@ async function getAllBills(req, res) {
  * @returns {string} The calculated total bill amount rounded to two decimal places.
  */
 const calculateTotal = (roomCharge, servicesCharge, taxRate) => {
-  const tax = (roomCharge + servicesCharge) * taxRate;
-  return (roomCharge + servicesCharge + tax).toFixed(2);
+
+  console.log(roomCharge, servicesCharge, taxRate);
+  
+  // Ensure all inputs are numbers
+  const roomChargeNum = parseFloat(roomCharge) || 0;
+  const servicesChargeNum = parseFloat(servicesCharge) || 0;
+  const taxRateNum = parseFloat(taxRate) || 0;
+
+  const tax =  parseFloat(taxRateNum/100);
+  const price = parseFloat(roomChargeNum + servicesChargeNum);
+  console.log(roomCharge, servicesCharge, taxRate);
+  return parseFloat(price)+(parseFloat(price))* (parseFloat(tax)).toFixed(2);
 };
 
 /**
