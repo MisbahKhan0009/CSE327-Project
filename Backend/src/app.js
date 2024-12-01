@@ -30,7 +30,7 @@ app.use("/api/rooms", availabilityRoutes); // '/api/rooms/available' for the roo
 app.use("/api/reservations", reservationRoutes);
 
 // Routes Touhid(Begains)
-app.use("/api/admin", adminRoutes);
+app.use("/api/admin", adminRoutes); //working
 app.use("/api/amenities", amenityRoutes);
 app.use("/api/guest", guestRoutes);
 app.use("/api/feedback", feedbackRoutes);
@@ -41,7 +41,7 @@ app.use("/api/payments", paymentHistoryRoutes);
 //routes
 app.use("/api/register", registrationRoutes);
 app.use("/api/login", loginRoutes);
-app.use("/api/bills", billingRoutes); // Use billing routes
+app.use("/api/bills", billingRoutes);  //working
 
 // Set up routes
 app.use("/api/roomList", roomsRoutes); // misbah
