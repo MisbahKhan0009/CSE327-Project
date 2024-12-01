@@ -36,11 +36,22 @@ Make sure you have the following installed:
 3. Set up the backend:  
    ```bash  
    cd Backend  
-   npm install  
-   npm start  
+   npm install   
    ```  
 
-Now you're ready to explore **Othiti**!  
+Now you're ready to explore **Othiti**! 
+
+**To Run the Backend, run the following command in the terminal:**
+
+```bash
+   npm start 
+```
+
+**To Test the Backend, run the following command in the terminal:**
+
+```bash
+   npm test
+```
 
 ---
 
