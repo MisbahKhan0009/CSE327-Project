@@ -1,7 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const availabilityRoutes = require("./routes/sumaya/availiability.routes");
-// const reservationRoutes = require("./routes/sumaya/reservation.routes");
+const express = require('express');
+const cors = require('cors');
+const availabilityRoutes = require('./routes/sumaya/availiability.routes');
+const reservationRoutesSumaiya = require('./routes/sumaya/reservation.routes');
 const bodyParser = require("body-parser");
 const adminRoutes = require("./routes/touhid/admin.routes");
 const amenityRoutes = require("./routes/touhid/amenity.routes");
@@ -10,6 +10,7 @@ const feedbackRoutes = require("./routes/touhid/feedback.routes");
 const reservationRoutes = require("./routes/touhid/getreservation.routes");
 const paymentHistoryRoutes = require("./routes/touhid/history.routes");
 const roomsRoutes = require("./routes/misbah/rooms.routes");
+const reservationRoutesMisba = require("./routes/misbah/reservation.routes");
 const registrationRoutes = require("./routes/jarif/registration.routes");
 const loginRoutes = require("./routes/jarif/login.routes");
 const billingRoutes = require("./routes/jarif/billing.routes");
@@ -26,8 +27,9 @@ app.use(express.json()); // For parsing application/json
 app.use(bodyParser.json());
 
 // Room availability routes
-app.use("/api/rooms", availabilityRoutes); // '/api/rooms/available' for the room availability route
-app.use("/api/reservations", reservationRoutes);
+app.use('/api/rooms', availabilityRoutes);  // '/api/rooms/available' for the room availability route
+app.use('/api/reservations', reservationRoutesSumaiya);
+
 
 // Routes Touhid(Begains)
 app.use("/api/admin", adminRoutes); //working
@@ -45,7 +47,7 @@ app.use("/api/bills", billingRoutes);  //working
 
 // Set up routes
 app.use("/api/roomList", roomsRoutes); // misbah
-app.use("/api/reservationList", reservationRoutes); // misbah
+app.use("/api/reservationList", reservationRoutesMisba); // misbah
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
