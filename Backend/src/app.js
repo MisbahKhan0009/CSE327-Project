@@ -10,13 +10,15 @@ const feedbackRoutes = require("./routes/touhid/feedback.routes");
 const reservationRoutes = require("./routes/touhid/getreservation.routes");
 const paymentHistoryRoutes = require("./routes/touhid/history.routes");
 const roomsRoutes = require("./routes/misbah/rooms.routes");
+const registrationRoutes = require("./routes/jarif/registration.routes");
+const loginRoutes = require("./routes/jarif/login.routes");
+const billingRoutes = require("./routes/jarif/billing.routes");
 
 const app = express();
 
 // Use CORS to allow requests from any origin
 app.use(cors());
 const PORT = 3000;
-
 
 // Middleware
 app.use(cors());
